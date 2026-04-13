@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create your LabourGuard account - Privacy-First Labour Law Compliance System">
+  <title>Sign Up - LabourGuard</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../styles/global.css">
+  <link rel="stylesheet" href="../styles/components.css">
+</head>
+<body>
+  <div class="auth-page">
+    <!-- Left Side - Form -->
+    <div class="auth-left">
+      <a href="index.html" class="navbar-logo" style="margin-bottom: var(--space-8);">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+          <rect width="32" height="32" rx="8" fill="url(#logo-gradient-signup)"/>
+          <path d="M10 16L14 20L22 12" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="logo-gradient-signup" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6366f1"/>
+              <stop offset="1" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        LabourGuard
+      </a>
+      
+      <div class="auth-header">
+        <h1>Create your account</h1>
+        <p>Start tracking compliance without compromising privacy</p>
+      </div>
+      
+      <!-- Alert Container -->
+      <div id="alert-container"></div>
+      
+      <form class="auth-form" id="signup-form">
+        <div class="form-group">
+          <label for="name" class="form-label">Full Name</label>
+          <div class="input-group">
+            <span class="input-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </span>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              class="form-input" 
+              placeholder="John Doe"
+              required
+              autocomplete="name"
+              minlength="2"
+              maxlength="100"
+            >
+          </div>
+          <span class="form-error" id="name-error"></span>
+        </div>
+        
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <div class="input-group">
+            <span class="input-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </span>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+            >
+          </div>
+          <span class="form-error" id="email-error"></span>
+        </div>
+        
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            <span class="input-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </span>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-input" 
+              placeholder="Create a strong password"
+              required
+              autocomplete="new-password"
+              minlength="8"
+            >
+          </div>
+          <span class="form-hint">Must be at least 8 characters</span>
+          <span class="form-error" id="password-error"></span>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirm-password" class="form-label">Confirm Password</label>
+          <div class="input-group">
+            <span class="input-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </span>
+            <input 
+              type="password" 
+              id="confirm-password" 
+              name="confirmPassword" 
+              class="form-input" 
+              placeholder="Confirm your password"
+              required
+              autocomplete="new-password"
+              minlength="8"
+            >
+          </div>
+          <span class="form-error" id="confirm-password-error"></span>
+        </div>
+        
+        <div class="form-group">
+          <label for="role" class="form-label">I am an</label>
+          <select id="role" name="role" class="form-input" required>
+            <option value="employee">Employee</option>
+            <option value="employer">Employer</option>
+          </select>
+          <span class="form-error" id="role-error"></span>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;" id="submit-btn">
+          <span id="btn-text">Create Account</span>
+          <span id="btn-loader" class="spinner hidden"></span>
+        </button>
+      </form>
+      
+      <div class="auth-footer">
+        <p>Already have an account? <a href="login.html">Log in</a></p>
+      </div>
+      
+      <!-- Privacy Notice -->
+      <div style="margin-top: var(--space-6); padding: var(--space-4); background: var(--color-gray-50); border-radius: var(--radius-lg);">
+        <p style="font-size: var(--text-sm); color: var(--color-gray-500); margin: 0;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 6px;">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          We only collect your name, email, and work timestamps. No location tracking or surveillance. <a href="privacy.html" style="font-weight: 500;">Learn more</a>
+        </p>
+      </div>
+    </div>
+    
+    <!-- Right Side - Branding -->
+    <div class="auth-right">
+      <div class="auth-right-content">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="120" style="margin-bottom: var(--space-8); opacity: 0.9;">
+          <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+          <circle cx="50" cy="50" r="35" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+          <path d="M35 50L45 60L65 40" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h2>Join LabourGuard</h2>
+        <p>The compliance platform that respects employee privacy while ensuring your organization meets all labour law requirements.</p>
+        
+        <div style="margin-top: var(--space-8); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); text-align: left; max-width: 320px; margin-left: auto; margin-right: auto;">
+          <div style="background: rgba(255,255,255,0.1); padding: var(--space-4); border-radius: var(--radius-lg);">
+            <div style="font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-1);">9h</div>
+            <div style="font-size: var(--text-xs); opacity: 0.8;">Daily limit tracking</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.1); padding: var(--space-4); border-radius: var(--radius-lg);">
+            <div style="font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-1);">48h</div>
+            <div style="font-size: var(--text-xs); opacity: 0.8;">Weekly limit tracking</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.1); padding: var(--space-4); border-radius: var(--radius-lg);">
+            <div style="font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-1);">5h</div>
+            <div style="font-size: var(--text-xs); opacity: 0.8;">Break requirement</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.1); padding: var(--space-4); border-radius: var(--radius-lg);">
+            <div style="font-size: var(--text-2xl); font-weight: 700; margin-bottom: var(--space-1);">0</div>
+            <div style="font-size: var(--text-xs); opacity: 0.8;">Privacy invasions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="../js/pages/signup.js"></script>
+</body>
+</html>

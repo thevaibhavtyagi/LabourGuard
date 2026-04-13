@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LabourGuard - Privacy-First Labour Law Compliance System. Track working hours and ensure compliance without invasive monitoring.">
+  <title>LabourGuard - Privacy-First Labour Law Compliance</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../styles/global.css">
+  <link rel="stylesheet" href="../styles/components.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar-content">
+      <a href="index.html" class="navbar-logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="url(#logo-gradient)"/>
+          <path d="M10 16L14 20L22 12" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6366f1"/>
+              <stop offset="1" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        LabourGuard
+      </a>
+      
+      <ul class="navbar-nav">
+        <li><a href="#features" class="navbar-link">Features</a></li>
+        <li><a href="#how-it-works" class="navbar-link">How It Works</a></li>
+        <li><a href="privacy.html" class="navbar-link">Privacy</a></li>
+      </ul>
+      
+      <div class="navbar-actions">
+        <a href="login.html" class="btn btn-secondary">Log In</a>
+        <a href="signup.html" class="btn btn-primary">Get Started</a>
+      </div>
+      
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          Privacy-First Compliance
+        </div>
+        <h1 class="hero-title">
+          Labour Law Compliance <span>Without Surveillance</span>
+        </h1>
+        <p class="hero-description">
+          Track working hours, monitor compliance, and protect employee rights — all while respecting privacy. No location tracking, no screen monitoring, no invasive surveillance.
+        </p>
+        <div class="hero-actions">
+          <a href="signup.html" class="btn btn-primary btn-lg">
+            Start Free Trial
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <a href="#features" class="btn btn-secondary btn-lg">
+            Learn More
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Features</span>
+        <h2 class="section-title">Everything You Need for Compliance</h2>
+        <p class="section-description">
+          A complete solution that balances employer needs with employee privacy rights.
+        </p>
+      </div>
+      
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="card card-feature">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <h3>Time Tracking</h3>
+          <p>Simple check-in and check-out system. Track working hours without intrusive monitoring or background surveillance.</p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="card card-feature">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <h3>Compliance Engine</h3>
+          <p>Automatic detection of labour law violations including overtime limits, daily hours, and mandatory break requirements.</p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="card card-feature">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h3>Privacy Protected</h3>
+          <p>No location tracking, no screen monitoring, no keystroke logging. Only essential work data is collected.</p>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="card card-feature">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h3>Instant Alerts</h3>
+          <p>Real-time notifications for employees and employers when compliance issues are detected.</p>
+        </div>
+        
+        <!-- Feature 5 -->
+        <div class="card card-feature">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+          </div>
+          <h3>Analytics Dashboard</h3>
+          <p>Clear visualizations of working patterns, compliance status, and team overview for employers.</p>
+        </div>
+        
+        <!-- Feature 6 -->
+        <div class="card card-feature">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h3>Multi-Role Support</h3>
+          <p>Dedicated dashboards for employees and employers with role-appropriate features and views.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="section" id="how-it-works" style="background: var(--color-gray-50);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">How It Works</span>
+        <h2 class="section-title">Simple, Transparent, Compliant</h2>
+        <p class="section-description">
+          Getting started takes just minutes. No complex setup required.
+        </p>
+      </div>
+      
+      <div class="features-grid" style="max-width: 900px; margin: 0 auto;">
+        <!-- Step 1 -->
+        <div class="card card-feature">
+          <div class="icon" style="background: var(--color-primary);">
+            <span style="font-size: 1.25rem; font-weight: 700;">1</span>
+          </div>
+          <h3>Create Account</h3>
+          <p>Sign up as an employee or employer. Only name, email, and password required — nothing else.</p>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="card card-feature">
+          <div class="icon" style="background: var(--color-primary);">
+            <span style="font-size: 1.25rem; font-weight: 700;">2</span>
+          </div>
+          <h3>Check In & Out</h3>
+          <p>Employees simply check in when starting work and check out when finished. That's all the data we need.</p>
+        </div>
+        
+        <!-- Step 3 -->
+        <div class="card card-feature">
+          <div class="icon" style="background: var(--color-primary);">
+            <span style="font-size: 1.25rem; font-weight: 700;">3</span>
+          </div>
+          <h3>Stay Compliant</h3>
+          <p>Our compliance engine automatically monitors for violations and alerts both parties in real-time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy Promise Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Our Promise</span>
+        <h2 class="section-title">Privacy Is Not Optional</h2>
+        <p class="section-description">
+          We believe compliance and privacy can coexist. Here's what we'll never do.
+        </p>
+      </div>
+      
+      <div class="features-grid" style="max-width: 800px; margin: 0 auto;">
+        <div class="card" style="padding: var(--space-6); border-left: 4px solid var(--color-error);">
+          <div class="flex items-center gap-4 mb-4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-error)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            <h4 style="margin: 0;">No Location Tracking</h4>
+          </div>
+          <p style="margin: 0; color: var(--color-gray-600);">We never track where you are or where you've been.</p>
+        </div>
+        
+        <div class="card" style="padding: var(--space-6); border-left: 4px solid var(--color-error);">
+          <div class="flex items-center gap-4 mb-4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-error)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            <h4 style="margin: 0;">No Screen Monitoring</h4>
+          </div>
+          <p style="margin: 0; color: var(--color-gray-600);">We never capture screenshots or monitor your screen activity.</p>
+        </div>
+        
+        <div class="card" style="padding: var(--space-6); border-left: 4px solid var(--color-error);">
+          <div class="flex items-center gap-4 mb-4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-error)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            <h4 style="margin: 0;">No Keystroke Logging</h4>
+          </div>
+          <p style="margin: 0; color: var(--color-gray-600);">We never record what you type or how you use your device.</p>
+        </div>
+        
+        <div class="card" style="padding: var(--space-6); border-left: 4px solid var(--color-error);">
+          <div class="flex items-center gap-4 mb-4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--color-error)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            <h4 style="margin: 0;">No Background Surveillance</h4>
+          </div>
+          <p style="margin: 0; color: var(--color-gray-600);">We never run hidden processes or collect data without your action.</p>
+        </div>
+      </div>
+      
+      <div class="text-center mt-8">
+        <a href="privacy.html" class="btn btn-outline">Read Our Full Privacy Policy</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section" style="background: var(--gradient-accent);">
+    <div class="container text-center">
+      <h2 style="color: var(--color-white); margin-bottom: var(--space-4);">Ready to Get Started?</h2>
+      <p style="color: rgba(255,255,255,0.8); margin-bottom: var(--space-8); max-width: 500px; margin-left: auto; margin-right: auto;">
+        Join organizations that prioritize both compliance and employee privacy.
+      </p>
+      <div class="flex justify-center gap-4" style="flex-wrap: wrap;">
+        <a href="signup.html" class="btn btn-lg" style="background: white; color: var(--color-primary);">
+          Create Free Account
+        </a>
+        <a href="login.html" class="btn btn-lg" style="background: transparent; color: white; border: 2px solid white;">
+          Sign In
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-logo">LabourGuard</div>
+      <ul class="footer-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+      </ul>
+      <p style="font-size: var(--text-sm);">&copy; 2024 LabourGuard. Privacy-First Compliance.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="../js/pages/landing.js"></script>
+</body>
+</html>

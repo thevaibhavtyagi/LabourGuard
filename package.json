@@ -1,0 +1,27 @@
+{
+  "name": "labourguard",
+  "version": "1.0.0",
+  "description": "Privacy-First Labour Law Compliance System",
+  "private": true,
+  "scripts": {
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "install:backend": "cd backend && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/labourguard.git"
+  },
+  "keywords": [
+    "labour-law",
+    "compliance",
+    "privacy-first",
+    "work-tracking",
+    "employee-management"
+  ],
+  "author": "LabourGuard Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Dashboard - LabourGuard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/global.css">
+  <link rel="stylesheet" href="../styles/components.css">
+  <style>
+    .dashboard-container {
+      min-height: 100vh;
+      background: var(--bg-primary);
+    }
+    
+    /* Header */
+    .dashboard-header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-light);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+    }
+    
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .user-info {
+      text-align: right;
+    }
+    
+    .user-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+    
+    .user-role {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: capitalize;
+    }
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gradient-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+    
+    /* Main Content */
+    .dashboard-main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    /* Welcome Section */
+    .welcome-section {
+      margin-bottom: 2rem;
+    }
+    
+    .welcome-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+    
+    .welcome-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    
+    .welcome-date {
+      font-weight: 500;
+      color: var(--color-accent);
+    }
+    
+    /* Dashboard Grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    
+    @media (max-width: 1024px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Time Tracker Card */
+    .time-tracker-card {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+      padding: 2rem;
+      grid-column: span 1;
+    }
+    
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .card-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .status-indicator.idle {
+      background: var(--color-gray-100);
+      color: var(--color-gray-600);
+    }
+    
+    .status-indicator.active {
+      background: var(--color-success-light);
+      color: var(--color-success-dark);
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    
+    .status-indicator.active .status-dot {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    
+    /* Timer Display */
+    .timer-display {
+      text-align: center;
+      padding: 2rem 0;
+    }
+    
+    .timer-time {
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    
+    .timer-label {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    
+    .check-in-time {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: var(--color-gray-50);
+      border-radius: 8px;
+      display: inline-block;
+    }
+    
+    .check-in-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+    
+    .check-in-value {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    /* Timer Actions */
+    .timer-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .timer-actions .btn {
+      flex: 1;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+    
+    .btn-checkin {
+      background: var(--gradient-accent);
+      color: white;
+      border: none;
+    }
+    
+    .btn-checkin:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    }
+    
+    .btn-checkout {
+      background: var(--color-error);
+      color: white;
+      border: none;
+    }
+    
+    .btn-checkout:hover:not(:disabled) {
+      background: #dc2626;
+    }
+    
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .stat-card {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+      padding: 1.25rem;
+    }
+    
+    .stat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+    }
+    
+    .stat-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .stat-icon.daily {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--color-accent);
+    }
+    
+    .stat-icon.weekly {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--color-success);
+    }
+    
+    .stat-icon.sessions {
+      background: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
+    }
+    
+    .stat-icon.compliance {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--color-accent);
+    }
+    
+    /* Compliance Status Card */
+    .compliance-card {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+      padding: 2rem;
+      grid-column: span 2;
+    }
+    
+    @media (max-width: 1024px) {
+      .compliance-card {
+        grid-column: span 1;
+      }
+    }
+    
+    .compliance-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    
+    .compliance-status-badge.compliant {
+      background: var(--color-success-light);
+      color: var(--color-success-dark);
+    }
+    
+    .compliance-status-badge.warning {
+      background: var(--color-warning-light);
+      color: var(--color-warning-dark);
+    }
+    
+    .compliance-status-badge.violation {
+      background: var(--color-error-light);
+      color: var(--color-error-dark);
+    }
+    
+    .compliance-checks {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    @media (max-width: 640px) {
+      .compliance-checks {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .compliance-check {
+      padding: 1rem;
+      background: var(--color-gray-50);
+      border-radius: 10px;
+      border-left: 3px solid var(--color-gray-300);
+    }
+    
+    .compliance-check.compliant {
+      border-left-color: var(--color-success);
+    }
+    
+    .compliance-check.warning {
+      border-left-color: var(--color-warning);
+    }
+    
+    .compliance-check.violation {
+      border-left-color: var(--color-error);
+    }
+    
+    .compliance-check-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .compliance-check-title {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--text-primary);
+    }
+    
+    .compliance-check-status {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+    }
+    
+    .compliance-check-status.compliant {
+      background: var(--color-success-light);
+      color: var(--color-success-dark);
+    }
+    
+    .compliance-check-status.warning {
+      background: var(--color-warning-light);
+      color: var(--color-warning-dark);
+    }
+    
+    .compliance-check-status.violation {
+      background: var(--color-error-light);
+      color: var(--color-error-dark);
+    }
+    
+    .compliance-check-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    
+    .compliance-check-limit {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+    
+    .compliance-progress {
+      margin-top: 0.75rem;
+      height: 6px;
+      background: var(--color-gray-200);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    
+    .compliance-progress-bar {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    
+    .compliance-progress-bar.compliant {
+      background: var(--color-success);
+    }
+    
+    .compliance-progress-bar.warning {
+      background: var(--color-warning);
+    }
+    
+    .compliance-progress-bar.violation {
+      background: var(--color-error);
+    }
+    
+    /* Violations List */
+    .violations-list {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-light);
+    }
+    
+    .violations-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .violations-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+    
+    .violations-count {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      background: var(--color-error-light);
+      color: var(--color-error-dark);
+    }
+    
+    .violation-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: var(--color-gray-50);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .violation-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .violation-icon.warning {
+      background: var(--color-warning-light);
+      color: var(--color-warning-dark);
+    }
+    
+    .violation-icon.violation {
+      background: var(--color-error-light);
+      color: var(--color-error-dark);
+    }
+    
+    .violation-content {
+      flex: 1;
+    }
+    
+    .violation-message {
+      font-size: 0.8125rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    
+    .violation-time {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+    
+    .violation-acknowledge {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.75rem;
+      background: transparent;
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .violation-acknowledge:hover {
+      background: var(--color-gray-100);
+      color: var(--text-primary);
+    }
+    
+    .no-violations {
+      text-align: center;
+      padding: 1rem;
+      color: var(--color-success);
+      font-size: 0.875rem;
+    }
+    
+    .no-violations svg {
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    
+    .stat-suffix {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
+    
+    /* Weekly Overview */
+    .weekly-overview-card {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+      padding: 2rem;
+    }
+    
+    .weekly-chart {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      height: 180px;
+      padding: 1rem 0;
+      gap: 0.5rem;
+    }
+    
+    .chart-bar-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+    }
+    
+    .chart-bar-wrapper {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    
+    .chart-bar {
+      width: 100%;
+      max-width: 40px;
+      background: var(--color-gray-100);
+      border-radius: 6px 6px 0 0;
+      position: relative;
+      min-height: 4px;
+      transition: all 0.3s ease;
+    }
+    
+    .chart-bar.has-hours {
+      background: var(--gradient-accent);
+    }
+    
+    .chart-bar.overtime {
+      background: linear-gradient(180deg, var(--color-error) 0%, var(--color-error) 30%, var(--color-accent) 30%);
+    }
+    
+    .chart-bar-value {
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+    
+    .chart-label {
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    
+    .chart-label.today {
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+    
+    .weekly-summary {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-light);
+      margin-top: 1rem;
+    }
+    
+    .summary-item {
+      text-align: center;
+    }
+    
+    .summary-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+    }
+    
+    .summary-value {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .summary-value.warning {
+      color: var(--color-warning);
+    }
+    
+    .summary-value.success {
+      color: var(--color-success);
+    }
+    
+    /* Recent Activity */
+    .activity-card {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+      padding: 2rem;
+      grid-column: span 2;
+    }
+    
+    @media (max-width: 1024px) {
+      .activity-card {
+        grid-column: span 1;
+      }
+    }
+    
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .activity-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background: var(--color-gray-50);
+      border-radius: 10px;
+      gap: 1rem;
+    }
+    
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .activity-icon.checkin {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--color-success);
+    }
+    
+    .activity-icon.checkout {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--color-accent);
+    }
+    
+    .activity-details {
+      flex: 1;
+    }
+    
+    .activity-title {
+      font-weight: 500;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+    
+    .activity-time {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 0.125rem;
+    }
+    
+    .activity-duration {
+      text-align: right;
+    }
+    
+    .duration-value {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+    
+    .duration-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+    
+    .empty-activity {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+    }
+    
+    .empty-activity-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 1rem;
+      background: var(--color-gray-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-gray-400);
+    }
+    
+    /* Alert Banner */
+    .alert-banner {
+      display: none;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .alert-banner.show {
+      display: flex;
+    }
+    
+    .alert-banner.success {
+      background: var(--color-success-light);
+      color: var(--color-success-dark);
+    }
+    
+    .alert-banner.error {
+      background: var(--color-error-light);
+      color: var(--color-error-dark);
+    }
+    
+    .alert-banner.warning {
+      background: var(--color-warning-light);
+      color: var(--color-warning-dark);
+    }
+    
+    .alert-icon {
+      flex-shrink: 0;
+    }
+    
+    .alert-content {
+      flex: 1;
+    }
+    
+    .alert-title {
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+    
+    .alert-message {
+      font-size: 0.8125rem;
+      opacity: 0.9;
+    }
+    
+    .alert-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem;
+      opacity: 0.7;
+      color: currentColor;
+    }
+    
+    .alert-close:hover {
+      opacity: 1;
+    }
+    
+    /* Loading State */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    
+    .loading-overlay.hidden {
+      display: none;
+    }
+    
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid var(--color-gray-200);
+      border-top-color: var(--color-accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .dashboard-header {
+        padding: 1rem;
+      }
+      
+      .header-left {
+        gap: 1rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .user-info {
+        display: none;
+      }
+      
+      .dashboard-main {
+        padding: 1rem;
+      }
+      
+      .welcome-title {
+        font-size: 1.5rem;
+      }
+      
+      .timer-time {
+        font-size: 3rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .timer-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <div class="dashboard-container">
+    <!-- Header -->
+    <header class="dashboard-header">
+      <div class="header-content">
+        <div class="header-left">
+          <div class="logo-text">LabourGuard</div>
+          <nav class="nav-links">
+            <a href="dashboard.html" class="nav-link active">Dashboard</a>
+            <a href="privacy.html" class="nav-link">Privacy</a>
+          </nav>
+        </div>
+        <div class="user-menu">
+          <div class="user-info">
+            <div class="user-name" id="user-name">Loading...</div>
+            <div class="user-role" id="user-role">Employee</div>
+          </div>
+          <div class="user-avatar" id="user-avatar">?</div>
+          <button class="btn btn-secondary btn-sm" id="logout-btn">Logout</button>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="dashboard-main">
+      <!-- Alert Banner -->
+      <div class="alert-banner" id="alert-banner">
+        <div class="alert-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <div class="alert-content">
+          <div class="alert-title" id="alert-title">Alert</div>
+          <div class="alert-message" id="alert-message">Message</div>
+        </div>
+        <button class="alert-close" id="alert-close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Welcome Section -->
+      <div class="welcome-section">
+        <h1 class="welcome-title">Welcome back, <span id="welcome-name">User</span></h1>
+        <p class="welcome-subtitle">
+          Today is <span class="welcome-date" id="current-date">Loading...</span>
+        </p>
+      </div>
+      
+      <!-- Dashboard Grid -->
+      <div class="dashboard-grid">
+        <!-- Time Tracker Card -->
+        <div class="time-tracker-card">
+          <div class="card-header">
+            <h2 class="card-title">Time Tracker</h2>
+            <div class="status-indicator idle" id="status-indicator">
+              <span class="status-dot"></span>
+              <span id="status-text">Not Working</span>
+            </div>
+          </div>
+          
+          <div class="timer-display">
+            <div class="timer-time" id="timer-display">00:00:00</div>
+            <div class="timer-label">Current Session</div>
+            <div class="check-in-time" id="check-in-info" style="display: none;">
+              <div class="check-in-label">Checked in at</div>
+              <div class="check-in-value" id="check-in-time">--:--</div>
+            </div>
+          </div>
+          
+          <div class="timer-actions">
+            <button class="btn btn-checkin" id="checkin-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              Check In
+            </button>
+            <button class="btn btn-checkout" id="checkout-btn" style="display: none;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+              </svg>
+              Check Out
+            </button>
+          </div>
+        </div>
+        
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon daily">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="stat-label">Today's Hours</div>
+            <div class="stat-value"><span id="daily-hours">0</span><span class="stat-suffix">h</span> <span id="daily-minutes">0</span><span class="stat-suffix">m</span></div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon weekly">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <div class="stat-label">This Week</div>
+            <div class="stat-value"><span id="weekly-hours">0</span><span class="stat-suffix">h</span> <span id="weekly-minutes">0</span><span class="stat-suffix">m</span></div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon sessions">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+            </div>
+            <div class="stat-label">Sessions Today</div>
+            <div class="stat-value" id="sessions-count">0</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-icon compliance">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <div class="stat-label">Days Worked</div>
+            <div class="stat-value" id="days-worked">0</div>
+          </div>
+        </div>
+        
+        <!-- Weekly Overview -->
+        <div class="weekly-overview-card">
+          <div class="card-header">
+            <h2 class="card-title">Weekly Overview</h2>
+          </div>
+          
+          <div class="weekly-chart" id="weekly-chart">
+            <!-- Chart bars will be generated by JS -->
+          </div>
+          
+          <div class="weekly-summary">
+            <div class="summary-item">
+              <div class="summary-label">Total Hours</div>
+              <div class="summary-value" id="total-weekly-hours">0h 0m</div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-label">Daily Average</div>
+              <div class="summary-value" id="daily-average">0h 0m</div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-label">Remaining (48h limit)</div>
+              <div class="summary-value success" id="remaining-hours">48h 0m</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Compliance Status -->
+        <div class="compliance-card" id="compliance-card">
+          <div class="card-header">
+            <h2 class="card-title">Compliance Status</h2>
+            <div class="compliance-status-badge compliant" id="compliance-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span id="compliance-status-text">Compliant</span>
+            </div>
+          </div>
+          
+          <div class="compliance-checks" id="compliance-checks">
+            <!-- Daily Hours Check -->
+            <div class="compliance-check compliant" id="daily-check">
+              <div class="compliance-check-header">
+                <span class="compliance-check-title">Daily Hours</span>
+                <span class="compliance-check-status compliant" id="daily-status">OK</span>
+              </div>
+              <div class="compliance-check-value" id="daily-current">0h 0m</div>
+              <div class="compliance-check-limit">Limit: 9 hours per day</div>
+              <div class="compliance-progress">
+                <div class="compliance-progress-bar compliant" id="daily-progress" style="width: 0%;"></div>
+              </div>
+            </div>
+            
+            <!-- Weekly Hours Check -->
+            <div class="compliance-check compliant" id="weekly-check">
+              <div class="compliance-check-header">
+                <span class="compliance-check-title">Weekly Hours</span>
+                <span class="compliance-check-status compliant" id="weekly-status">OK</span>
+              </div>
+              <div class="compliance-check-value" id="weekly-current">0h 0m</div>
+              <div class="compliance-check-limit">Limit: 48 hours per week</div>
+              <div class="compliance-progress">
+                <div class="compliance-progress-bar compliant" id="weekly-progress" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Violations List -->
+          <div class="violations-list" id="violations-section">
+            <div class="violations-header">
+              <span class="violations-title">Recent Violations</span>
+              <span class="violations-count" id="violations-count" style="display: none;">0</span>
+            </div>
+            <div id="violations-list">
+              <div class="no-violations">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <p>No violations recorded. Keep up the good work!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recent Activity -->
+        <div class="activity-card">
+          <div class="card-header">
+            <h2 class="card-title">Recent Activity</h2>
+          </div>
+          
+          <div class="activity-list" id="activity-list">
+            <div class="empty-activity">
+              <div class="empty-activity-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <p>No recent activity. Check in to start tracking your work hours.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script type="module" src="../js/pages/dashboard.js"></script>
+</body>
+</html>
