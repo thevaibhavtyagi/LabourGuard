@@ -8,7 +8,6 @@ export const protect = async (req, res, next) => {
   try {
     let token;
 
-    // Check for token in Authorization header
     if (req.headers.authorization?.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1];
     }
@@ -20,7 +19,6 @@ export const protect = async (req, res, next) => {
       });
     }
 
-    // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
@@ -33,10 +31,9 @@ export const protect = async (req, res, next) => {
 };
 
 /**
- * Role-based Authorization Middleware
- * Restricts access based on user role
+ * Role-based Authorization Logic
  */
-export const authorize = (...roles) => {
+const roleGuard = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       return res.status(403).json({
@@ -47,3 +44,7 @@ export const authorize = (...roles) => {
     next();
   };
 };
+
+// Export BOTH names so all your route files are happy, no matter which one they ask for!
+export const authorize = roleGuard;
+export const restrictTo = roleGuard;
