@@ -17,7 +17,7 @@
     
     /* Header */
     .dashboard-header {
-      background: var(--bg-secondary);
+      background: var(--color-white, #ffffff);
       border-bottom: 1px solid var(--border-light);
       padding: 1rem 2rem;
       position: sticky;
@@ -141,15 +141,30 @@
       .dashboard-grid {
         grid-template-columns: 1fr;
       }
+      .weekly-overview-card {
+        grid-column: span 1;
+        max-width: 100%;
+      }
+      .time-tracker-card,
+      .stats-grid {
+        max-width: 100%; 
+        margin-left: 0;
+        margin-right: 0;
+      }
     }
     
     /* Time Tracker Card */
     .time-tracker-card {
-      background: var(--bg-secondary);
+      background: var(--bg-secondary, #ffffff);
       border-radius: 16px;
-      border: 1px solid var(--border-light);
+      border: 1px solid var(--border-light, #e2e8f0);
       padding: 2rem;
       grid-column: span 1;
+      
+      margin-left: auto;   
+      margin-right: 0;     
+      width: 100%;
+      max-width: 500px;
     }
     
     .card-header {
@@ -280,6 +295,15 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
+      background: var(--color-gray-50); 
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid var(--color-gray-200);
+      /* New layout additions to shift towards center */
+      margin-left: 0;      /* Snaps it to the center gap */
+      margin-right: auto;  /* Pushes it away from the right edge */
+      width: 100%;
+      max-width: 500px;
     }
     
     .stat-card {
@@ -593,6 +617,10 @@
       border-radius: 16px;
       border: 1px solid var(--border-light);
       padding: 2rem;
+      grid-column: span 2; 
+      max-width: 800px; 
+      width: 100%;
+      margin: 0 auto;
     }
     
     .weekly-chart {
@@ -704,8 +732,16 @@
     }
     
     @media (max-width: 1024px) {
-      .activity-card {
-        grid-column: span 1;
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      .weekly-overview-card {
+        grid-column: span 1; 
+        max-width: 100%;
+      }
+      .stats-grid {
+        max-width: 100%;
+        margin-left: 0; 
       }
     }
     
