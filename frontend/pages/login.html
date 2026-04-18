@@ -6,20 +6,160 @@
   <meta name="description" content="Log in to LabourGuard - Privacy-First Labour Law Compliance System">
   <title>Log In - LabourGuard</title>
   
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
   
-  <!-- Styles -->
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/components.css">
+
+  <style>
+    /* Dark Theme & Container Overrides */
+    body {
+      background-color: #211e29 !important;
+      color: #ffffff !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .auth-page-override {
+      display: flex;
+      flex-direction: row; /* Image Left, Form Right */
+      width: 100%;
+      max-width: 1200px;
+      gap: 4rem;
+      align-items: stretch;
+    }
+
+    /* Branding/Image Side (Left in image) */
+    .branding-side {
+      flex: 1.2;
+      background: linear-gradient(180deg, rgba(30, 20, 45, 0.6) 0%, rgba(15, 10, 20, 0.9) 100%);
+      background-color: #17151e;
+      border-radius: 1.5rem;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      min-height: 700px;
+    }
+
+    .branding-side .navbar-logo {
+      color: #ffffff !important;
+      font-size: 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .branding-content-bottom {
+      position: relative;
+      z-index: 2;
+      text-align: left;
+    }
+
+    .branding-content-bottom h2 {
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .branding-content-bottom p {
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 80%;
+    }
+
+    /* Form Side (Right in image) */
+    .form-side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 500px;
+    }
+
+    .form-side h1 {
+      color: #ffffff;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle-login {
+      color: #a0a0b0;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    .subtitle-login a {
+      color: #8b5cf6;
+      text-decoration: underline;
+    }
+
+    /* Input & Form Group Overrides */
+    .form-label {
+      display: none; /* Hidden to match visual style */
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-input {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      color: #ffffff !important;
+      border-radius: 0.5rem !important;
+    }
+
+    .form-input:focus {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+      border-color: #8b5cf6 !important;
+    }
+
+    .form-input::placeholder {
+      color: #6b6b7b !important;
+    }
+
+    /* Button Override */
+    .btn-primary {
+      background: #7c5cfa !important;
+      color: #ffffff !important;
+      box-shadow: none !important;
+      border-radius: 0.5rem !important;
+      margin-top: 1rem;
+    }
+
+    .btn-primary:hover {
+      background: #6a4ce0 !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .auth-page-override {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .branding-side {
+        min-height: 300px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="auth-page">
-    <!-- Left Side - Form -->
-    <div class="auth-left">
-      <a href="index.html" class="navbar-logo" style="margin-bottom: var(--space-12);">
+  <div class="auth-page-override">
+    
+    <div class="branding-side">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="200" height="200" style="position: absolute; top: 10%; right: -10%; opacity: 0.1;">
+        <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+        <circle cx="50" cy="50" r="35" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+        <path d="M35 50L45 60L65 40" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      
+      <a href="index.html" class="navbar-logo">
         <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
           <rect width="32" height="32" rx="8" fill="url(#logo-gradient-login)"/>
           <path d="M10 16L14 20L22 12" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -32,16 +172,44 @@
         </svg>
         LabourGuard
       </a>
-      
-      <div class="auth-header">
+
+      <div class="branding-content-bottom">
+        <h2>Privacy-First Compliance</h2>
+        <p>Track working hours and ensure labour law compliance without invasive monitoring. Your privacy matters.</p>
+        
+        <div style="margin-top: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); text-align: left; max-width: 280px;">
+          <div style="display: flex; align-items: center; gap: var(--space-3); color: #fff;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span style="font-size: var(--text-sm); opacity: 0.9;">No location tracking</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: var(--space-3); color: #fff;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span style="font-size: var(--text-sm); opacity: 0.9;">No screen monitoring</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: var(--space-3); color: #fff;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span style="font-size: var(--text-sm); opacity: 0.9;">Only essential data collected</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-side">
+      <div class="auth-header" style="margin-bottom: 0;">
         <h1>Welcome back</h1>
-        <p>Enter your credentials to access your account</p>
+        <p class="subtitle-login">Don't have an account? <a href="signup.html">Sign up</a></p>
       </div>
       
-      <!-- Alert Container -->
       <div id="alert-container"></div>
       
       <form class="auth-form" id="login-form">
+        
         <div class="form-group">
           <label for="email" class="form-label">Email Address</label>
           <div class="input-group">
@@ -51,15 +219,7 @@
                 <polyline points="22,6 12,13 2,6"></polyline>
               </svg>
             </span>
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
-              class="form-input" 
-              placeholder="you@example.com"
-              required
-              autocomplete="email"
-            >
+            <input type="email" id="email" name="email" class="form-input" placeholder="Email Address" required autocomplete="email">
           </div>
           <span class="form-error" id="email-error"></span>
         </div>
@@ -73,16 +233,7 @@
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
               </svg>
             </span>
-            <input 
-              type="password" 
-              id="password" 
-              name="password" 
-              class="form-input" 
-              placeholder="Enter your password"
-              required
-              autocomplete="current-password"
-              minlength="8"
-            >
+            <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required autocomplete="current-password" minlength="8">
           </div>
           <span class="form-error" id="password-error"></span>
         </div>
@@ -93,47 +244,10 @@
         </button>
       </form>
       
-      <div class="auth-footer">
-        <p>Don't have an account? <a href="signup.html">Sign up</a></p>
-      </div>
     </div>
     
-    <!-- Right Side - Branding -->
-    <div class="auth-right">
-      <div class="auth-right-content">
-        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="120" style="margin-bottom: var(--space-8); opacity: 0.9;">
-          <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-          <circle cx="50" cy="50" r="35" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
-          <path d="M35 50L45 60L65 40" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <h2>Privacy-First Compliance</h2>
-        <p>Track working hours and ensure labour law compliance without invasive monitoring. Your privacy matters.</p>
-        
-        <div style="margin-top: var(--space-8); display: flex; flex-direction: column; gap: var(--space-3); text-align: left; max-width: 280px; margin-left: auto; margin-right: auto;">
-          <div style="display: flex; align-items: center; gap: var(--space-3);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-            <span style="font-size: var(--text-sm);">No location tracking</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: var(--space-3);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-            <span style="font-size: var(--text-sm);">No screen monitoring</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: var(--space-3);">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-            <span style="font-size: var(--text-sm);">Only essential data collected</span>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <!-- Scripts -->
   <script type="module" src="../js/pages/login.js"></script>
 </body>
 </html>
