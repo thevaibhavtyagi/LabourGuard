@@ -4,12 +4,16 @@
  */
 
 // Dynamically determine the backend URL based on the current environment
+// Dynamically determine the backend URL based on the current environment
 const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
-// If testing locally, use port 5000. If deployed on Vercel, use the Render backend!
+/**
+ * PRODUCTION ARCHITECT NOTE: 
+ * Backend is now fully Serverless on Vercel. Render sleep timers bypassed.
+ */
 const API_BASE_URL = isLocalhost 
   ? 'http://localhost:5000/api' 
-  : 'https://labourguard-backend.onrender.com/api';
+  : 'https://labourguard-backend.vercel.app/api';
 
 console.log(`🔌 LabourGuard API connected to: ${isLocalhost ? 'Local Development' : 'Production Cloud'}`);
 
