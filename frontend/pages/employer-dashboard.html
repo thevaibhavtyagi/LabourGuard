@@ -697,7 +697,7 @@
     }
     
     .modal-content {
-      background: var(--bg-secondary);
+      background: var(--color-white, #ffffff); 
       border-radius: 16px;
       max-width: 600px;
       width: 100%;
@@ -705,6 +705,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.2));
     }
     
     .modal-header {
