@@ -32,6 +32,7 @@ app.use('/api/health', (req, res) => {
   res.status(200).json({
     status: 'healthy',
     database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    environment: process.env.VERCEL ? 'vercel-serverless' : 'local-server',
     timestamp: new Date().toISOString()
   });
 });
@@ -56,13 +57,15 @@ app.use((err, req, res, next) => {
 });
 
 // Boot Sequence
-const PORT = process.env.PORT || 5000;
-
-// Use Top-Level Await (Node 18+ supports this) to ensure DB connects before taking requests
+// Use Top-Level Await to ensure DB connects before taking requests
 await connectDB();
 
-const server = app.listen(PORT, () => {
-  console.log(`
+// VERCEL injects a process.env.VERCEL environment variable automatically.
+// If it exists, we skip app.listen() because Vercel handles the port bindings dynamically.
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
+  const server = app.listen(PORT, () => {
+    console.log(`
 ╔════════════════════════════════════════════════╗
 ║        LabourGuard API Server                  ║
 ╠════════════════════════════════════════════════╣
@@ -70,26 +73,28 @@ const server = app.listen(PORT, () => {
 ║  Port:      ${PORT.toString().padEnd(31)}║
 ║  Mode:      ${(process.env.NODE_ENV || 'development').padEnd(31)}║
 ╚════════════════════════════════════════════════╝
-  `);
-});
-
-// Graceful Shutdown for CI/CD Deployments (Render, AWS, Docker, etc.)
-const gracefulShutdown = async () => {
-  console.log('⚠ Received kill signal, shutting down gracefully...');
-  server.close(async () => {
-    console.log('✓ HTTP server closed.');
-    try {
-      await mongoose.connection.close(false);
-      console.log('✓ MongoDB connection closed.');
-      process.exit(0);
-    } catch (err) {
-      console.error('✗ Error closing MongoDB connection:', err);
-      process.exit(1);
-    }
+    `);
   });
-};
 
-process.on('SIGINT', gracefulShutdown);  // For local Ctrl+C
-process.on('SIGTERM', gracefulShutdown); // For cloud container termination
+  // Graceful Shutdown for local/container dev
+  const gracefulShutdown = async () => {
+    console.log('⚠ Received kill signal, shutting down gracefully...');
+    server.close(async () => {
+      console.log('✓ HTTP server closed.');
+      try {
+        await mongoose.connection.close(false);
+        console.log('✓ MongoDB connection closed.');
+        process.exit(0);
+      } catch (err) {
+        console.error('✗ Error closing MongoDB connection:', err);
+        process.exit(1);
+      }
+    });
+  };
 
+  process.on('SIGINT', gracefulShutdown);  // For local Ctrl+C
+  process.on('SIGTERM', gracefulShutdown); // For cloud container termination
+}
+
+// CRITICAL FOR VERCEL: Export the app
 export default app;
