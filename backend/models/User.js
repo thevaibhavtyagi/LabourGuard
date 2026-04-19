@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, 'Email is required'],
-    unique: true,
+    unique: true, // This automatically creates the { email: 1 } index!
     lowercase: true,
     trim: true,
     match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email']
@@ -41,7 +41,8 @@ const userSchema = new mongoose.Schema({
 });
 
 // Index for faster queries
-userSchema.index({ email: 1 });
+// Removed the { email: 1 } index because unique: true handles it automatically.
+// Kept role index as it is highly queried for dashboard sorting.
 userSchema.index({ role: 1 });
 
 const User = mongoose.model('User', userSchema);
