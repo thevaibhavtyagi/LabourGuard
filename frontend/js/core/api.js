@@ -3,7 +3,15 @@
  * Handles all HTTP requests to the backend
  */
 
-const API_BASE_URL = 'http://localhost:5000/api';
+// Dynamically determine the backend URL based on the current environment
+const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+// If testing locally, use port 5000. If deployed on Vercel, use the Render backend!
+const API_BASE_URL = isLocalhost 
+  ? 'http://localhost:5000/api' 
+  : 'https://labourguard-backend.onrender.com/api';
+
+console.log(`🔌 LabourGuard API connected to: ${isLocalhost ? 'Local Development' : 'Production Cloud'}`);
 
 /**
  * Makes an HTTP request to the API
