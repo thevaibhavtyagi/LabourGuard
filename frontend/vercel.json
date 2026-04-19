@@ -1,24 +1,22 @@
 {
+  "cleanUrls": true,
   "rewrites": [
-    {
-      "source": "/",
-      "destination": "/pages/index.html"
-    },
-    {
-      "source": "/login",
-      "destination": "/pages/login.html"
-    },
-    {
-      "source": "/signup",
-      "destination": "/pages/signup.html"
-    },
-    {
-      "source": "/dashboard",
-      "destination": "/pages/dashboard.html"
-    },
-    {
-      "source": "/employer-dashboard",
-      "destination": "/pages/employer-dashboard.html"
-    }
+    { "source": "/", "destination": "/pages/index.html" },
+    { "source": "/index.html", "destination": "/pages/index.html" },
+    
+    { "source": "/login.html", "destination": "/pages/login.html" },
+    { "source": "/login", "destination": "/pages/login.html" },
+    
+    { "source": "/signup.html", "destination": "/pages/signup.html" },
+    { "source": "/signup", "destination": "/pages/signup.html" },
+    
+    { "source": "/dashboard.html", "destination": "/pages/dashboard.html" },
+    { "source": "/dashboard", "destination": "/pages/dashboard.html" },
+    
+    { "source": "/employer-dashboard.html", "destination": "/pages/employer-dashboard.html" },
+    { "source": "/employer-dashboard", "destination": "/pages/employer-dashboard.html" },
+
+    { "source": "/privacy.html", "destination": "/pages/privacy.html" },
+    { "source": "/privacy", "destination": "/pages/privacy.html" }
   ]
 }
