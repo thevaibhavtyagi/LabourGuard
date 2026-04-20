@@ -4,249 +4,440 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Log in to LabourGuard - Privacy-First Labour Law Compliance System">
-  <title>Log In - LabourGuard</title>
+  <title>Log In | LabourGuard Enterprise</title>
   
+  <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
   
+  <!-- Core Stylesheets -->
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/components.css">
 
   <style>
-    /* Dark Theme & Container Overrides */
+    /* ═══════════════════════════════════════════════════════════════
+       LabourGuard - Authentication Layout (Master Edition)
+       High-Contrast Split Architecture
+       ═══════════════════════════════════════════════════════════════ */
+    
     body {
-      background-color: #211e29 !important;
-      color: #ffffff !important;
+      background-color: var(--color-white) !important;
+      margin: 0;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 2rem;
+      overflow-x: hidden;
     }
 
-    .auth-page-override {
+    .auth-layout {
       display: flex;
-      flex-direction: row; /* Image Left, Form Right */
       width: 100%;
-      max-width: 1200px;
-      gap: 4rem;
-      align-items: stretch;
+      min-height: 100vh;
     }
 
-    /* Branding/Image Side (Left in image) */
-    .branding-side {
-      flex: 1.2;
-      background: linear-gradient(180deg, rgba(30, 20, 45, 0.6) 0%, rgba(15, 10, 20, 0.9) 100%);
-      background-color: #17151e;
-      border-radius: 1.5rem;
-      padding: 3rem;
+    /* ─────────────────────────────────────────────────────────────────
+       Left Column: Dark Enterprise Branding
+       ───────────────────────────────────────────────────────────────── */
+    .auth-brand {
+      flex: 1.1;
+      position: relative;
+      background: var(--color-primary); /* Deep Black */
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      position: relative;
+      padding: var(--space-12);
       overflow: hidden;
-      min-height: 700px;
+      z-index: 1;
     }
 
-    .branding-side .navbar-logo {
-      color: #ffffff !important;
+    .brand-glow {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      width: 800px;
+      height: 800px;
+      background: var(--color-accent);
+      filter: blur(200px);
+      opacity: 0.15;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .auth-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-family: var(--font-heading);
       font-size: 1.5rem;
-      position: relative;
+      font-weight: 800;
+      color: var(--color-white);
+      text-decoration: none;
       z-index: 2;
     }
 
-    .branding-content-bottom {
-      position: relative;
+    /* SVG Integration & Animation */
+    .brand-visual {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-8) 0;
       z-index: 2;
-      text-align: left;
     }
 
-    .branding-content-bottom h2 {
-      color: #ffffff;
-      margin-bottom: 0.5rem;
+    .brand-visual img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+      animation: smoothFloat 8s ease-in-out infinite;
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
-    .branding-content-bottom p {
-      color: rgba(255, 255, 255, 0.8);
-      max-width: 80%;
+    @keyframes smoothFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
     }
 
-    /* Form Side (Right in image) */
-    .form-side {
+    .brand-metrics-container {
+      z-index: 2;
+    }
+
+    .brand-metrics-container h2 {
+      color: var(--color-white);
+      font-size: 2rem;
+      margin-bottom: var(--space-2);
+    }
+    
+    .brand-metrics-container p {
+      color: var(--color-gray-400);
+      font-size: 1.125rem;
+      max-width: 90%;
+      margin-bottom: var(--space-8);
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+      max-width: 400px;
+    }
+
+    .metric-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      padding: var(--space-4);
+      border-radius: var(--radius-xl);
+      transition: all var(--transition-base);
+    }
+
+    .metric-box:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(99, 102, 241, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .metric-value {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--color-white);
+      line-height: 1;
+      margin-bottom: var(--space-1);
+    }
+
+    .metric-label {
+      font-size: 0.85rem;
+      color: var(--color-gray-400);
+      font-weight: 500;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Right Column: Clean Air Form Panel
+       ───────────────────────────────────────────────────────────────── */
+    .auth-form-panel {
       flex: 1;
       display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      max-width: 500px;
+      padding: var(--space-8);
+      background: var(--color-white);
     }
 
-    .form-side h1 {
-      color: #ffffff;
-      font-size: 2.2rem;
-      margin-bottom: 0.5rem;
+    .form-container {
+      width: 100%;
+      max-width: 440px;
     }
 
-    .subtitle-login {
-      color: #a0a0b0;
-      font-size: 0.9rem;
-      margin-bottom: 2rem;
+    .form-header h1 {
+      color: var(--color-primary);
+      font-size: 2.5rem;
+      margin-bottom: var(--space-2);
+      letter-spacing: -0.04em;
     }
 
-    .subtitle-login a {
-      color: #8b5cf6;
-      text-decoration: underline;
+    .form-header p {
+      color: var(--color-gray-500);
+      font-size: 1rem;
+      margin-bottom: var(--space-8);
     }
 
-    /* Input & Form Group Overrides */
-    .form-label {
-      display: none; /* Hidden to match visual style */
+    .form-header a {
+      color: var(--color-accent);
+      font-weight: 600;
     }
 
+    .form-header a:hover {
+      color: var(--color-accent-dark);
+    }
+
+    /* High-Fidelity Inputs (Light Mode) */
     .form-group {
-      margin-bottom: 1.25rem;
+      margin-bottom: var(--space-5);
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      color: var(--color-gray-400);
+      display: flex;
+      transition: color var(--transition-fast);
+      pointer-events: none;
     }
 
     .form-input {
-      background-color: rgba(255, 255, 255, 0.05) !important;
-      border: 1px solid rgba(255, 255, 255, 0.1) !important;
-      color: #ffffff !important;
-      border-radius: 0.5rem !important;
-    }
-
-    .form-input:focus {
-      background-color: rgba(255, 255, 255, 0.08) !important;
-      border-color: #8b5cf6 !important;
+      width: 100%;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-300);
+      color: var(--color-primary);
+      padding: 0.875rem 1rem 0.875rem 3rem;
+      font-family: var(--font-primary);
+      font-size: 1rem;
+      border-radius: var(--radius-lg);
+      transition: all var(--transition-base);
+      outline: none;
+      box-shadow: var(--shadow-sm);
     }
 
     .form-input::placeholder {
-      color: #6b6b7b !important;
+      color: var(--color-gray-400);
     }
 
-    /* Button Override */
-    .btn-primary {
-      background: #7c5cfa !important;
-      color: #ffffff !important;
-      box-shadow: none !important;
-      border-radius: 0.5rem !important;
-      margin-top: 1rem;
+    .form-input:hover {
+      border-color: var(--color-gray-400);
     }
 
-    .btn-primary:hover {
-      background: #6a4ce0 !important;
+    .form-input:focus {
+      background: var(--color-white);
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 4px var(--color-accent-glow);
     }
+
+    .input-wrapper:focus-within .input-icon {
+      color: var(--color-accent);
+    }
+
+    .form-error {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--color-error);
+      margin-top: var(--space-1);
+      height: 14px;
+    }
+
+    .form-input.error {
+      border-color: var(--color-error);
+      background: rgba(239, 68, 68, 0.02);
+    }
+    
+    .input-wrapper:has(.form-input.error) .input-icon {
+      color: var(--color-error);
+    }
+
+    /* Privacy Notice */
+    .auth-privacy-notice {
+      margin-top: var(--space-6);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      font-size: 0.85rem;
+      color: var(--color-gray-500);
+      line-height: 1.5;
+    }
+
+    .auth-privacy-notice svg {
+      color: var(--color-success);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* JS Entry Animations */
+    .anim-slide-right { opacity: 0; transform: translateX(-30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .anim-slide-left { opacity: 0; transform: translateX(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .anim-active { opacity: 1; transform: translateX(0); }
+
+    /* Alert Box Override */
+    #alert-container .alert {
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      animation: alertFadeIn 0.3s ease-out forwards;
+    }
+    .alert-error { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: var(--color-error); }
+    .alert-success { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: var(--color-success); }
+    @keyframes alertFadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
     /* Responsive */
-    @media (max-width: 992px) {
-      .auth-page-override {
-        flex-direction: column;
-        gap: 2rem;
-      }
-      .branding-side {
-        min-height: 300px;
-      }
+    @media (max-width: 1024px) {
+      .auth-layout { flex-direction: column; }
+      .auth-brand { flex: none; min-height: 500px; border-right: none; }
+      .brand-visual { padding: var(--space-4) 0; }
+      .brand-visual img { max-width: 300px; }
+      .form-container { padding: var(--space-8) 0; }
+    }
+    
+    @media (max-width: 600px) {
+      .auth-brand { padding: var(--space-6); min-height: auto; }
+      .metrics-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <div class="auth-page-override">
+
+  <div class="auth-layout">
     
-    <div class="branding-side">
-      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="200" height="200" style="position: absolute; top: 10%; right: -10%; opacity: 0.1;">
-        <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
-        <circle cx="50" cy="50" r="35" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
-        <path d="M35 50L45 60L65 40" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+    <!-- LEFT: Enterprise Dark Branding Panel -->
+    <div class="auth-brand anim-slide-right" id="anim-brand">
+      <div class="brand-glow"></div>
       
-      <a href="index.html" class="navbar-logo">
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
-          <rect width="32" height="32" rx="8" fill="url(#logo-gradient-login)"/>
-          <path d="M10 16L14 20L22 12" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <defs>
-            <linearGradient id="logo-gradient-login" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#6366f1"/>
-              <stop offset="1" stop-color="#8b5cf6"/>
-            </linearGradient>
-          </defs>
+      <a href="index" class="auth-logo">
+        <svg viewBox="0 0 32 32" width="32" height="32" fill="none">
+          <rect width="32" height="32" rx="8" fill="var(--color-accent)"/>
+          <path d="M10 16L14 20L22 12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         LabourGuard
       </a>
 
-      <div class="branding-content-bottom">
-        <h2>Privacy-First Compliance</h2>
-        <p>Track working hours and ensure labour law compliance without invasive monitoring. Your privacy matters.</p>
+      <!-- Premium SVG Visual -->
+      <div class="brand-visual">
+        <img src="../assets/login_up.svg" alt="LabourGuard Platform Interface">
+      </div>
+
+      <div class="brand-metrics-container">
+        <h2>Secure Access.</h2>
+        <p>Enter your credentials to access your organization's zero-knowledge compliance dashboard.</p>
         
-        <div style="margin-top: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); text-align: left; max-width: 280px;">
-          <div style="display: flex; align-items: center; gap: var(--space-3); color: #fff;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-            <span style="font-size: var(--text-sm); opacity: 0.9;">No location tracking</span>
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="metric-value">0</div>
+            <div class="metric-label">Privacy Invasions</div>
           </div>
-          <div style="display: flex; align-items: center; gap: var(--space-3); color: #fff;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-            <span style="font-size: var(--text-sm); opacity: 0.9;">No screen monitoring</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: var(--space-3); color: #fff;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-            <span style="font-size: var(--text-sm); opacity: 0.9;">Only essential data collected</span>
+          <div class="metric-box">
+            <div class="metric-value">100%</div>
+            <div class="metric-label">Statutory Alignment</div>
           </div>
         </div>
       </div>
     </div>
     
-    <div class="form-side">
-      <div class="auth-header" style="margin-bottom: 0;">
-        <h1>Welcome back</h1>
-        <p class="subtitle-login">Don't have an account? <a href="signup.html">Sign up</a></p>
+    <!-- RIGHT: Clean Light Form Panel -->
+    <div class="auth-form-panel anim-slide-left" id="anim-form">
+      <div class="form-container">
+        
+        <div class="form-header">
+          <h1>Welcome back</h1>
+          <p>Don't have an organization account? <a href="signup">Sign up here</a></p>
+        </div>
+        
+        <div id="alert-container"></div>
+        
+        <form id="login-form" novalidate>
+          
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">Work Email</label>
+            <div class="input-wrapper">
+              <span class="input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </span>
+              <input type="email" id="email" name="email" class="form-input" placeholder="jane@company.com" required autocomplete="email">
+            </div>
+            <span class="form-error" id="email-error"></span>
+          </div>
+          
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password" class="form-label">Secure Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </span>
+              <input type="password" id="password" name="password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+            <span class="form-error" id="password-error"></span>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: var(--space-4);" id="submit-btn">
+            <span id="btn-text">Access Dashboard</span>
+            <span id="btn-loader" class="spinner hidden" style="display:none; margin-left: 10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-spin">
+                <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+              </svg>
+            </span>
+          </button>
+        </form>
+        
+        <div class="auth-privacy-notice">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span>
+            Zero-Knowledge Architecture: We enforce strict data perimeters. Sessions are encrypted and isolated. 
+            <a href="privacy" style="color: var(--color-accent); font-weight: 600; text-decoration: none;">Read protocol</a>.
+          </span>
+        </div>
+
       </div>
-      
-      <div id="alert-container"></div>
-      
-      <form class="auth-form" id="login-form">
-        
-        <div class="form-group">
-          <label for="email" class="form-label">Email Address</label>
-          <div class="input-group">
-            <span class="input-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-            </span>
-            <input type="email" id="email" name="email" class="form-input" placeholder="Email Address" required autocomplete="email">
-          </div>
-          <span class="form-error" id="email-error"></span>
-        </div>
-        
-        <div class="form-group">
-          <label for="password" class="form-label">Password</label>
-          <div class="input-group">
-            <span class="input-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
-            </span>
-            <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required autocomplete="current-password" minlength="8">
-          </div>
-          <span class="form-error" id="password-error"></span>
-        </div>
-        
-        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;" id="submit-btn">
-          <span id="btn-text">Log In</span>
-          <span id="btn-loader" class="spinner hidden"></span>
-        </button>
-      </form>
-      
     </div>
     
   </div>
+
+  <style>
+    .animate-spin { animation: spin 1s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+  </style>
 
   <script type="module" src="../js/pages/login.js"></script>
 </body>

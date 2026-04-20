@@ -3,875 +3,381 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="LabourGuard Privacy Policy - Learn what data we collect, what we don't collect, and how we protect your privacy.">
-  <title>Privacy Policy - LabourGuard</title>
+  <meta name="description" content="LabourGuard - Academic Project Methodology and Privacy Approach.">
+  <title>Project Methodology | LabourGuard</title>
   
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   
-  <!-- Styles -->
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/components.css">
   
   <style>
-    /* Privacy Page Specific Styles */
-    .privacy-hero {
-      background: linear-gradient(135deg, var(--color-gray-50) 0%, var(--color-white) 100%);
-      padding: calc(72px + var(--space-16)) 0 var(--space-16);
+    /* ═══════════════════════════════════════════════════════════════
+       LabourGuard - Project Methodology & Privacy Architecture
+       ═══════════════════════════════════════════════════════════════ */
+    
+    body {
+      background-color: var(--color-bg-base);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Hero Section (Focusing on the Problem Statement)
+       ───────────────────────────────────────────────────────────────── */
+    .methodology-hero {
+      position: relative;
+      padding: calc(140px + var(--space-8)) 0 var(--space-16);
       text-align: center;
-    }
-    
-    .privacy-hero-icon {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto var(--space-6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--gradient-accent);
-      border-radius: var(--radius-2xl);
+      background: var(--color-primary);
       color: var(--color-white);
+      overflow: hidden;
     }
-    
-    .privacy-hero h1 {
-      margin-bottom: var(--space-4);
+
+    .hero-glow {
+      position: absolute;
+      top: 0; left: 50%;
+      width: 800px; height: 600px;
+      background: var(--color-accent);
+      filter: blur(200px); opacity: 0.2;
+      transform: translate(-50%, -50%);
+      pointer-events: none; border-radius: 50%;
     }
-    
-    .privacy-hero p {
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: var(--text-lg);
-      color: var(--color-gray-600);
-    }
-    
-    .privacy-content {
-      padding: var(--space-16) 0;
-    }
-    
-    .privacy-grid {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: var(--space-12);
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    
-    @media (max-width: 900px) {
-      .privacy-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-8);
-      }
-    }
-    
-    /* Table of Contents */
-    .privacy-toc {
-      position: sticky;
-      top: 100px;
-      align-self: start;
-    }
-    
-    @media (max-width: 900px) {
-      .privacy-toc {
-        position: static;
-        background: var(--color-gray-50);
-        padding: var(--space-6);
-        border-radius: var(--radius-xl);
-      }
-    }
-    
-    .privacy-toc h3 {
-      font-size: var(--text-sm);
+
+    .academic-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
       font-weight: 600;
-      color: var(--color-gray-500);
+      color: var(--color-accent-light);
+      margin-bottom: var(--space-6);
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: var(--space-4);
     }
-    
-    .privacy-toc-list {
-      list-style: none;
-    }
-    
-    .privacy-toc-list li {
-      margin-bottom: var(--space-2);
-    }
-    
-    .privacy-toc-list a {
-      display: block;
-      padding: var(--space-2) var(--space-3);
-      font-size: var(--text-sm);
-      color: var(--color-gray-600);
-      border-radius: var(--radius-md);
-      transition: all var(--transition-fast);
-    }
-    
-    .privacy-toc-list a:hover,
-    .privacy-toc-list a.active {
-      background: rgba(99, 102, 241, 0.1);
-      color: var(--color-accent);
-    }
-    
-    /* Privacy Sections */
-    .privacy-section {
-      margin-bottom: var(--space-12);
-      scroll-margin-top: 100px;
-    }
-    
-    .privacy-section h2 {
-      font-size: var(--text-2xl);
-      margin-bottom: var(--space-6);
-      padding-bottom: var(--space-4);
-      border-bottom: 1px solid var(--color-gray-200);
-    }
-    
-    .privacy-section h3 {
-      font-size: var(--text-lg);
-      margin-top: var(--space-6);
-      margin-bottom: var(--space-3);
-      color: var(--color-gray-800);
-    }
-    
-    .privacy-section p {
-      color: var(--color-gray-600);
-      line-height: 1.8;
-      margin-bottom: var(--space-4);
-    }
-    
-    .privacy-section ul {
-      margin: var(--space-4) 0;
-      padding-left: var(--space-6);
-      color: var(--color-gray-600);
-    }
-    
-    .privacy-section li {
-      margin-bottom: var(--space-2);
-      line-height: 1.7;
-    }
-    
-    /* Data Cards */
-    .data-cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-      margin: var(--space-6) 0;
-    }
-    
-    @media (max-width: 600px) {
-      .data-cards {
-        grid-template-columns: 1fr;
-      }
-    }
-    
-    .data-card {
-      padding: var(--space-5);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--color-gray-200);
-    }
-    
-    .data-card.collected {
-      background: var(--color-success-light);
-      border-color: var(--color-success);
-    }
-    
-    .data-card.not-collected {
-      background: var(--color-error-light);
-      border-color: var(--color-error);
-    }
-    
-    .data-card-header {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-      margin-bottom: var(--space-3);
-    }
-    
-    .data-card-icon {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: var(--radius-md);
-    }
-    
-    .data-card.collected .data-card-icon {
-      background: var(--color-success);
+
+    .methodology-hero h1 {
       color: var(--color-white);
+      max-width: 900px;
+      margin: 0 auto var(--space-6);
+      font-size: clamp(2.5rem, 5vw, 4rem);
     }
-    
-    .data-card.not-collected .data-card-icon {
-      background: var(--color-error);
-      color: var(--color-white);
+
+    .problem-statement-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      max-width: 700px;
+      margin: 0 auto;
+      padding: var(--space-6);
+      border-radius: var(--radius-xl);
+      text-align: left;
     }
-    
-    .data-card h4 {
-      font-size: var(--text-sm);
+
+    .problem-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--color-accent-light);
+      margin-bottom: var(--space-2);
+      text-transform: uppercase;
+    }
+
+    .problem-text {
+      font-size: 1.25rem;
       font-weight: 600;
-      margin: 0;
-    }
-    
-    .data-card.collected h4 {
-      color: var(--color-success-dark);
-    }
-    
-    .data-card.not-collected h4 {
-      color: var(--color-error-dark);
-    }
-    
-    .data-card p {
-      font-size: var(--text-sm);
+      color: var(--color-white);
       margin: 0;
       line-height: 1.5;
     }
-    
-    .data-card.collected p {
-      color: var(--color-success-dark);
+
+    /* ─────────────────────────────────────────────────────────────────
+       Bento Grid Architecture Breakdown
+       ───────────────────────────────────────────────────────────────── */
+    .architecture-section {
+      padding: var(--space-24) 0;
+      position: relative;
+      z-index: 2;
     }
-    
-    .data-card.not-collected p {
-      color: var(--color-error-dark);
+
+    .section-intro {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto var(--space-16);
     }
-    
-    /* Comparison Table */
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: var(--space-6) 0;
-      font-size: var(--text-sm);
-    }
-    
-    .comparison-table th,
-    .comparison-table td {
-      padding: var(--space-4);
-      text-align: left;
-      border-bottom: 1px solid var(--color-gray-200);
-    }
-    
-    .comparison-table th {
-      background: var(--color-gray-50);
-      font-weight: 600;
-      color: var(--color-gray-700);
-    }
-    
-    .comparison-table td:first-child {
-      font-weight: 500;
-      color: var(--color-gray-800);
-    }
-    
-    .comparison-table .check {
-      color: var(--color-success);
-    }
-    
-    .comparison-table .cross {
-      color: var(--color-error);
-    }
-    
-    /* Promise Cards */
-    .promise-grid {
+
+    .bento-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-      margin: var(--space-6) 0;
+      gap: var(--space-6);
+      max-width: 1100px;
+      margin: 0 auto;
     }
-    
-    @media (max-width: 600px) {
-      .promise-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    
-    .promise-card {
-      display: flex;
-      align-items: flex-start;
-      gap: var(--space-4);
-      padding: var(--space-5);
+
+    .bento-box {
       background: var(--color-white);
-      border-radius: var(--radius-lg);
       border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-base);
     }
-    
-    .promise-icon {
-      width: 40px;
-      height: 40px;
-      flex-shrink: 0;
+
+    .bento-box:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--color-gray-300);
+    }
+
+    .bento-box.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .bento-header {
       display: flex;
       align-items: center;
-      justify-content: center;
-      background: var(--gradient-accent);
-      border-radius: var(--radius-md);
-      color: var(--color-white);
-    }
-    
-    .promise-content h4 {
-      font-size: var(--text-base);
-      margin-bottom: var(--space-1);
-    }
-    
-    .promise-content p {
-      font-size: var(--text-sm);
-      margin: 0;
-    }
-    
-    /* Contact Box */
-    .contact-box {
-      background: var(--color-gray-50);
-      border-radius: var(--radius-xl);
-      padding: var(--space-8);
-      text-align: center;
-      margin-top: var(--space-8);
-    }
-    
-    .contact-box h3 {
-      margin-bottom: var(--space-3);
-    }
-    
-    .contact-box p {
+      gap: var(--space-4);
       margin-bottom: var(--space-6);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--color-gray-100);
     }
-    
-    /* Last Updated Badge */
-    .last-updated {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      padding: var(--space-2) var(--space-4);
-      background: var(--color-gray-100);
-      border-radius: var(--radius-full);
-      font-size: var(--text-sm);
-      color: var(--color-gray-600);
-      margin-top: var(--space-4);
+
+    .bento-icon {
+      width: 48px; height: 48px;
+      border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .bento-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--color-success); }
+    .bento-icon.red { background: rgba(239, 68, 68, 0.1); color: var(--color-error); }
+    .bento-icon.blue { background: rgba(99, 102, 241, 0.1); color: var(--color-accent); }
+
+    .bento-title h3 { margin: 0; font-size: 1.25rem; color: var(--color-primary); }
+    .bento-title p { margin: 0; font-size: 0.85rem; color: var(--color-gray-500); }
+
+    .data-list {
+      list-style: none; padding: 0; margin: 0;
+    }
+
+    .data-list li {
+      display: flex; align-items: flex-start; gap: var(--space-3);
+      margin-bottom: var(--space-3); padding-bottom: var(--space-3);
+      border-bottom: 1px dashed var(--color-gray-100);
+    }
+    .data-list li:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+    .data-indicator {
+      margin-top: 2px; flex-shrink: 0;
+    }
+    .data-indicator.check { color: var(--color-success); }
+    .data-indicator.cross { color: var(--color-error); }
+
+    .data-text h4 { font-size: 0.95rem; margin: 0 0 2px 0; color: var(--color-primary); }
+    .data-text p { font-size: 0.85rem; margin: 0; color: var(--color-gray-500); line-height: 1.4; }
+
+    /* Tech Stack Pills */
+    .tech-stack {
+      display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4);
+    }
+    .tech-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem; font-weight: 600;
+      padding: 6px 12px; border-radius: var(--radius-md);
+      background: var(--color-bg-base); border: 1px solid var(--color-gray-200);
+      color: var(--color-gray-700);
+    }
+
+    /* Animations */
+    .stagger-enter { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .stagger-enter.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .bento-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
+
+  <!-- Floating Pill Navbar (Consistent across platform) -->
   <nav class="navbar" id="navbar">
-    <div class="container navbar-content">
+    <div class="navbar-content" style="width: 100%;">
       <a href="index.html" class="navbar-logo">
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="32" height="32" rx="8" fill="url(#logo-gradient)"/>
-          <path d="M10 16L14 20L22 12" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <defs>
-            <linearGradient id="logo-gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#6366f1"/>
-              <stop offset="1" stop-color="#8b5cf6"/>
-            </linearGradient>
-          </defs>
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+          <rect width="32" height="32" rx="8" fill="var(--color-accent)"/>
+          <path d="M10 16L14 20L22 12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         LabourGuard
       </a>
       
       <ul class="navbar-nav">
-        <li><a href="index.html#features" class="navbar-link">Features</a></li>
+        <li><a href="index.html#features" class="navbar-link">Platform Features</a></li>
         <li><a href="index.html#how-it-works" class="navbar-link">How It Works</a></li>
-        <li><a href="privacy.html" class="navbar-link" style="color: var(--color-accent);">Privacy</a></li>
+        <li><a href="privacy.html" class="navbar-link" style="color: var(--color-primary); font-weight: 700;">Methodology</a></li>
       </ul>
       
       <div class="navbar-actions">
-        <a href="login.html" class="btn btn-secondary">Log In</a>
-        <a href="signup.html" class="btn btn-primary">Get Started</a>
+        <a href="login.html" class="btn btn-outline" style="padding: 0.5rem 1.25rem;">Sign In</a>
+        <a href="signup.html" class="btn btn-primary" style="padding: 0.5rem 1.25rem;">Access Portal</a>
       </div>
-      
-      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-      </button>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="privacy-hero">
-    <div class="container">
-      <div class="privacy-hero-icon">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          <path d="m9 12 2 2 4-4"/>
-        </svg>
+  <!-- Project Methodology Hero -->
+  <section class="methodology-hero">
+    <div class="hero-glow"></div>
+    <div class="container relative z-10 stagger-enter">
+      <div class="academic-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        Academic Proof of Concept
       </div>
-      <h1>Privacy Policy</h1>
-      <p>
-        At LabourGuard, privacy is not an afterthought — it's our foundation. Learn exactly what data we collect, what we never collect, and why our approach protects your rights.
-      </p>
-      <div class="last-updated">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"></circle>
-          <polyline points="12 6 12 12 16 14"></polyline>
-        </svg>
-        Last updated: January 2024
+      
+      <h1>Engineering Trust in the Workplace.</h1>
+      
+      <div class="problem-statement-box stagger-enter" style="transition-delay: 0.2s;">
+        <div class="problem-label">// The Core Problem Statement</div>
+        <p class="problem-text">
+          "Achieving Labour Laws compliance while actively reducing employer intrusion and surveillance."
+        </p>
+        <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--color-gray-400);">
+          This project was designed to prove that strict statutory compliance tracking does not require compromising the fundamental privacy rights of employees.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Privacy Content -->
-  <section class="privacy-content">
+  <!-- Architecture & Data Approach -->
+  <section class="architecture-section">
     <div class="container">
-      <div class="privacy-grid">
-        <!-- Table of Contents -->
-        <aside class="privacy-toc">
-          <h3>Contents</h3>
-          <ul class="privacy-toc-list">
-            <li><a href="#overview">Overview</a></li>
-            <li><a href="#what-we-collect">What We Collect</a></li>
-            <li><a href="#what-we-dont-collect">What We Don't Collect</a></li>
-            <li><a href="#why-privacy-first">Why Privacy-First</a></li>
-            <li><a href="#how-data-used">How Data Is Used</a></li>
-            <li><a href="#data-security">Data Security</a></li>
-            <li><a href="#your-rights">Your Rights</a></li>
-            <li><a href="#comparison">Comparison</a></li>
-            <li><a href="#contact">Contact Us</a></li>
+      <div class="section-intro stagger-enter">
+        <h2>Our Engineering Approach</h2>
+        <p>Instead of drafting a complex legal document, we believe in technical transparency. Here is exactly how we structured the database and logic to solve the problem statement.</p>
+      </div>
+
+      <div class="bento-grid">
+        
+        <!-- What we Collect -->
+        <div class="bento-box stagger-enter" style="transition-delay: 0.1s;">
+          <div class="bento-header">
+            <div class="bento-icon green">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <div class="bento-title">
+              <h3>The Minimum Viable Data</h3>
+              <p>What we actually store in MongoDB.</p>
+            </div>
+          </div>
+          <ul class="data-list">
+            <li>
+              <div class="data-indicator check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+              <div class="data-text">
+                <h4>Basic Identity</h4>
+                <p>Name and Work Email to generate unique session tokens and establish the HR relationship.</p>
+              </div>
+            </li>
+            <li>
+              <div class="data-indicator check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+              <div class="data-text">
+                <h4>Cryptographic Credentials</h4>
+                <p>Passwords are never stored in plain text. We utilize bcrypt hashing for absolute database security.</p>
+              </div>
+            </li>
+            <li>
+              <div class="data-indicator check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+              <div class="data-text">
+                <h4>Telemetry Timestamps</h4>
+                <p>Pure numerical ISO strings marking when an employee clicks 'Check-In' and 'Check-Out'.</p>
+              </div>
+            </li>
           </ul>
-        </aside>
+        </div>
 
-        <!-- Main Content -->
-        <main>
-          <!-- Overview -->
-          <section id="overview" class="privacy-section">
-            <h2>Overview</h2>
-            <p>
-              LabourGuard is designed from the ground up to be a <strong>privacy-first</strong> labour law compliance system. We believe that ensuring workplace compliance should not require invasive surveillance or monitoring of employees.
-            </p>
-            <p>
-              Our approach is simple: collect only the essential data needed to track working hours and ensure legal compliance — nothing more. This means no location tracking, no screen monitoring, no keystroke logging, and no background surveillance of any kind.
-            </p>
-            <p>
-              This privacy policy explains in clear, plain language exactly what data we collect, why we collect it, how we protect it, and what rights you have over your information.
-            </p>
-          </section>
-
-          <!-- What We Collect -->
-          <section id="what-we-collect" class="privacy-section">
-            <h2>What We Collect</h2>
-            <p>
-              We collect only the minimum data necessary to provide our service. Here is a complete and exhaustive list of all data we store:
-            </p>
-            
-            <div class="data-cards">
-              <div class="data-card collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                  </div>
-                  <h4>Name</h4>
-                </div>
-                <p>Your first and last name for identification within the system.</p>
-              </div>
-              
-              <div class="data-card collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                      <polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
-                  </div>
-                  <h4>Email Address</h4>
-                </div>
-                <p>Used for authentication and essential account communications.</p>
-              </div>
-              
-              <div class="data-card collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                    </svg>
-                  </div>
-                  <h4>Password (Hashed)</h4>
-                </div>
-                <p>Securely hashed using bcrypt. We never store plain-text passwords.</p>
-              </div>
-              
-              <div class="data-card collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                  </div>
-                  <h4>Work Timestamps</h4>
-                </div>
-                <p>Check-in and check-out times you explicitly record.</p>
-              </div>
-              
-              <div class="data-card collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <line x1="18" y1="20" x2="18" y2="10"></line>
-                      <line x1="12" y1="20" x2="12" y2="4"></line>
-                      <line x1="6" y1="20" x2="6" y2="14"></line>
-                    </svg>
-                  </div>
-                  <h4>Computed Hours</h4>
-                </div>
-                <p>Total working hours calculated from your timestamps.</p>
-              </div>
-              
-              <div class="data-card collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <line x1="12" y1="8" x2="12" y2="12"></line>
-                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                    </svg>
-                  </div>
-                  <h4>Compliance Violations</h4>
-                </div>
-                <p>Records when labour law limits are exceeded for legal compliance.</p>
-              </div>
+        <!-- What we Refuse to Collect -->
+        <div class="bento-box stagger-enter" style="transition-delay: 0.2s;">
+          <div class="bento-header">
+            <div class="bento-icon red">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
             </div>
-            
-            <p>
-              <strong>That's it.</strong> The above list is complete and exhaustive. We do not collect any other data about you, your device, your location, or your activities.
-            </p>
-          </section>
-
-          <!-- What We Don't Collect -->
-          <section id="what-we-dont-collect" class="privacy-section">
-            <h2>What We Don't Collect</h2>
-            <p>
-              Unlike many workplace monitoring tools, LabourGuard explicitly refuses to collect invasive data. Here is what we will <strong>never</strong> collect:
-            </p>
-            
-            <div class="data-cards">
-              <div class="data-card not-collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <line x1="15" y1="9" x2="9" y2="15"></line>
-                      <line x1="9" y1="9" x2="15" y2="15"></line>
-                    </svg>
-                  </div>
-                  <h4>Location Data</h4>
-                </div>
-                <p>No GPS, IP-based location, or geofencing. We never track where you are.</p>
-              </div>
-              
-              <div class="data-card not-collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <line x1="15" y1="9" x2="9" y2="15"></line>
-                      <line x1="9" y1="9" x2="15" y2="15"></line>
-                    </svg>
-                  </div>
-                  <h4>Screen Captures</h4>
-                </div>
-                <p>No screenshots, screen recordings, or visual monitoring of any kind.</p>
-              </div>
-              
-              <div class="data-card not-collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <line x1="15" y1="9" x2="9" y2="15"></line>
-                      <line x1="9" y1="9" x2="15" y2="15"></line>
-                    </svg>
-                  </div>
-                  <h4>Keystroke Logging</h4>
-                </div>
-                <p>No recording of what you type, including passwords or personal messages.</p>
-              </div>
-              
-              <div class="data-card not-collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <line x1="15" y1="9" x2="9" y2="15"></line>
-                      <line x1="9" y1="9" x2="15" y2="15"></line>
-                    </svg>
-                  </div>
-                  <h4>Application Usage</h4>
-                </div>
-                <p>No tracking of which apps or websites you use during work.</p>
-              </div>
-              
-              <div class="data-card not-collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <line x1="15" y1="9" x2="9" y2="15"></line>
-                      <line x1="9" y1="9" x2="15" y2="15"></line>
-                    </svg>
-                  </div>
-                  <h4>Mouse/Activity Tracking</h4>
-                </div>
-                <p>No monitoring of mouse movements, clicks, or "activity levels."</p>
-              </div>
-              
-              <div class="data-card not-collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <line x1="15" y1="9" x2="9" y2="15"></line>
-                      <line x1="9" y1="9" x2="15" y2="15"></line>
-                    </svg>
-                  </div>
-                  <h4>Webcam/Microphone</h4>
-                </div>
-                <p>No access to camera or microphone. No selfie verification or audio recording.</p>
-              </div>
-              
-              <div class="data-card not-collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <line x1="15" y1="9" x2="9" y2="15"></line>
-                      <line x1="9" y1="9" x2="15" y2="15"></line>
-                    </svg>
-                  </div>
-                  <h4>Background Processes</h4>
-                </div>
-                <p>No hidden agents, daemons, or background processes running on your device.</p>
-              </div>
-              
-              <div class="data-card not-collected">
-                <div class="data-card-header">
-                  <div class="data-card-icon">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <line x1="15" y1="9" x2="9" y2="15"></line>
-                      <line x1="9" y1="9" x2="15" y2="15"></line>
-                    </svg>
-                  </div>
-                  <h4>File Access</h4>
-                </div>
-                <p>No scanning of files, documents, or personal data on your device.</p>
-              </div>
+            <div class="bento-title">
+              <h3>The Engineering Boundary</h3>
+              <p>What we explicitly refused to build.</p>
             </div>
-          </section>
+          </div>
+          <ul class="data-list">
+            <li>
+              <div class="data-indicator cross"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+              <div class="data-text">
+                <h4>No Geolocation Tracking</h4>
+                <p>We rely on cryptographic session trust. The system does not request or store GPS coordinates or IP tracking.</p>
+              </div>
+            </li>
+            <li>
+              <div class="data-indicator cross"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+              <div class="data-text">
+                <h4>No Screen/Key Monitoring</h4>
+                <p>We track the <i>duration</i> of the work, not the <i>nature</i> of the work. No invasive background daemons are installed.</p>
+              </div>
+            </li>
+            <li>
+              <div class="data-indicator cross"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+              <div class="data-text">
+                <h4>No Third-Party Data Selling</h4>
+                <p>Because this is a closed-loop academic project, data is restricted entirely to the Node.js/Mongo backend.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
 
-          <!-- Why Privacy-First -->
-          <section id="why-privacy-first" class="privacy-section">
-            <h2>Why Privacy-First</h2>
-            <p>
-              Many workplace monitoring tools justify invasive surveillance in the name of productivity or compliance. We fundamentally disagree with this approach.
-            </p>
-            
-            <div class="promise-grid">
-              <div class="promise-card">
-                <div class="promise-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  </svg>
-                </div>
-                <div class="promise-content">
-                  <h4>Compliance ≠ Surveillance</h4>
-                  <p>Labour law compliance only requires tracking hours worked, not monitoring every action.</p>
-                </div>
-              </div>
-              
-              <div class="promise-card">
-                <div class="promise-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="m9 12 2 2 4-4"/>
-                  </svg>
-                </div>
-                <div class="promise-content">
-                  <h4>Trust Builds Productivity</h4>
-                  <p>Surveillance erodes trust. Privacy-respecting tools foster better work environments.</p>
-                </div>
-              </div>
-              
-              <div class="promise-card">
-                <div class="promise-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="9" cy="7" r="4"></circle>
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                  </svg>
-                </div>
-                <div class="promise-content">
-                  <h4>Employee Rights Matter</h4>
-                  <p>Workers deserve dignity and privacy. Our tool respects fundamental rights.</p>
-                </div>
-              </div>
-              
-              <div class="promise-card">
-                <div class="promise-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                  </svg>
-                </div>
-                <div class="promise-content">
-                  <h4>Less Data = Less Risk</h4>
-                  <p>We can't leak or misuse data we never collect in the first place.</p>
-                </div>
-              </div>
+        <!-- The Tech Stack -->
+        <div class="bento-box full-width stagger-enter" style="transition-delay: 0.3s;">
+          <div class="bento-header">
+            <div class="bento-icon blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
             </div>
-          </section>
-
-          <!-- How Data Is Used -->
-          <section id="how-data-used" class="privacy-section">
-            <h2>How Data Is Used</h2>
-            <p>
-              The data we collect is used exclusively for the following purposes:
-            </p>
-            <ul>
-              <li><strong>Authentication:</strong> Your email and hashed password verify your identity when logging in.</li>
-              <li><strong>Time Tracking:</strong> Work timestamps are used to calculate your daily and weekly hours.</li>
-              <li><strong>Compliance Monitoring:</strong> Working hours are compared against legal limits (e.g., 9 hours/day, 48 hours/week) to detect violations.</li>
-              <li><strong>Employer Reports:</strong> Aggregated, anonymized hours data helps employers ensure organization-wide compliance.</li>
-              <li><strong>Violation Records:</strong> When limits are exceeded, violations are recorded for legal compliance documentation.</li>
-            </ul>
-            <p>
-              We do <strong>not</strong> sell, share, or transfer your data to third parties for advertising, marketing, or any other purpose. Your data stays within LabourGuard.
-            </p>
-          </section>
-
-          <!-- Data Security -->
-          <section id="data-security" class="privacy-section">
-            <h2>Data Security</h2>
-            <p>
-              We implement industry-standard security measures to protect your data:
-            </p>
-            <ul>
-              <li><strong>Password Hashing:</strong> All passwords are hashed using bcrypt with a cost factor of 12, making them computationally infeasible to reverse.</li>
-              <li><strong>HTTPS Encryption:</strong> All data transmitted between your browser and our servers is encrypted using TLS.</li>
-              <li><strong>JWT Authentication:</strong> Secure, stateless authentication tokens with expiration prevent unauthorized access.</li>
-              <li><strong>Database Security:</strong> MongoDB instances are configured with authentication and access controls.</li>
-              <li><strong>Input Validation:</strong> All user inputs are validated and sanitized to prevent injection attacks.</li>
-            </ul>
-          </section>
-
-          <!-- Your Rights -->
-          <section id="your-rights" class="privacy-section">
-            <h2>Your Rights</h2>
-            <p>
-              You have full control over your data. Your rights include:
-            </p>
-            <ul>
-              <li><strong>Right to Access:</strong> You can view all data we have about you at any time through your dashboard.</li>
-              <li><strong>Right to Rectification:</strong> You can update your personal information (name, email) in your account settings.</li>
-              <li><strong>Right to Deletion:</strong> You can request complete deletion of your account and all associated data.</li>
-              <li><strong>Right to Data Portability:</strong> You can request an export of your data in a standard format.</li>
-              <li><strong>Right to Withdraw Consent:</strong> You can stop using our service at any time without penalty.</li>
-            </ul>
-            <p>
-              To exercise any of these rights, contact us using the information provided below.
-            </p>
-          </section>
-
-          <!-- Comparison -->
-          <section id="comparison" class="privacy-section">
-            <h2>LabourGuard vs. Other Tools</h2>
-            <p>
-              See how our privacy-first approach compares to typical employee monitoring software:
-            </p>
-            
-            <table class="comparison-table">
-              <thead>
-                <tr>
-                  <th>Feature</th>
-                  <th>LabourGuard</th>
-                  <th>Typical Monitoring</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Time Tracking</td>
-                  <td class="check">Manual check-in/out</td>
-                  <td class="check">Automatic + manual</td>
-                </tr>
-                <tr>
-                  <td>Compliance Alerts</td>
-                  <td class="check">Yes</td>
-                  <td class="check">Sometimes</td>
-                </tr>
-                <tr>
-                  <td>Location Tracking</td>
-                  <td class="cross">Never</td>
-                  <td class="check">Often included</td>
-                </tr>
-                <tr>
-                  <td>Screen Monitoring</td>
-                  <td class="cross">Never</td>
-                  <td class="check">Common feature</td>
-                </tr>
-                <tr>
-                  <td>Keystroke Logging</td>
-                  <td class="cross">Never</td>
-                  <td class="check">Available</td>
-                </tr>
-                <tr>
-                  <td>App/Website Tracking</td>
-                  <td class="cross">Never</td>
-                  <td class="check">Standard feature</td>
-                </tr>
-                <tr>
-                  <td>Background Agent</td>
-                  <td class="cross">None required</td>
-                  <td class="check">Usually required</td>
-                </tr>
-                <tr>
-                  <td>Employee Privacy</td>
-                  <td class="check">Fully respected</td>
-                  <td class="cross">Often compromised</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-
-          <!-- Contact -->
-          <section id="contact" class="privacy-section">
-            <h2>Contact Us</h2>
-            <p>
-              If you have any questions about this privacy policy, our data practices, or wish to exercise your data rights, please contact us:
-            </p>
-            
-            <div class="contact-box">
-              <h3>Privacy Questions?</h3>
-              <p>We're committed to transparency. Reach out and we'll respond promptly.</p>
-              <a href="mailto:privacy@labourguard.com" class="btn btn-primary">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-                privacy@labourguard.com
-              </a>
+            <div class="bento-title">
+              <h3>System Security & Stack</h3>
+              <p>The underlying technologies driving the compliance engine.</p>
             </div>
-          </section>
-        </main>
+          </div>
+          <p style="color: var(--color-gray-600); font-size: 0.95rem; margin-bottom: var(--space-4);">
+            To securely solve the problem statement, the system logic is separated into an isolated frontend and a secure REST API backend. The compliance engine runs server-side to prevent client-side manipulation of hours.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-pill">Node.js</span>
+            <span class="tech-pill">Express Framework</span>
+            <span class="tech-pill">MongoDB (Mongoose)</span>
+            <span class="tech-pill">JSON Web Tokens (JWT)</span>
+            <span class="tech-pill">Bcrypt Encryption</span>
+            <span class="tech-pill">Chart.js Analytics</span>
+            <span class="tech-pill">Vercel Deployment</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer-content">
-      <div class="footer-logo">LabourGuard</div>
-      <ul class="footer-links">
-        <li><a href="index.html#features">Features</a></li>
-        <li><a href="privacy.html">Privacy</a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="signup.html">Sign Up</a></li>
-      </ul>
-      <p style="font-size: var(--text-sm);">&copy; 2024 LabourGuard. Privacy-First Compliance.</p>
+  <!-- Clean Footer -->
+  <footer class="footer" style="padding-top: var(--space-16);">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          LabourGuard
+        </div>
+        <ul class="footer-links">
+          <li><a href="index.html#features">Architecture</a></li>
+          <li><a href="privacy.html">Methodology</a></li>
+          <li><a href="login.html">Client Portal</a></li>
+          <li><a href="signup.html">Registration</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 LabourGuard Academic Project. Engineered to solve compliance vs. privacy.</p>
+      </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script type="module" src="../js/pages/privacy.js"></script>
 </body>
 </html>

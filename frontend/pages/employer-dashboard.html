@@ -3,1128 +3,875 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Employer Dashboard - LabourGuard</title>
+  <title>Employer Dashboard | LabourGuard Enterprise</title>
+  
+  <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js for High-Fidelity Data Visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Core Stylesheets -->
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/components.css">
+
   <style>
     /* ═══════════════════════════════════════════════════════════════
-       Employer Dashboard Styles
+       LabourGuard - Dashboard Architecture (Master Edition)
        ═══════════════════════════════════════════════════════════════ */
     
-    .dashboard-container {
-      min-height: 100vh;
-      background: var(--bg-primary);
+    body {
+      background-color: var(--color-bg-base);
+      color: var(--color-gray-600);
     }
-    
-    /* Header */
-    .dashboard-header {
-      background: var(--color-white, #ffffff); 
-      border-bottom: 1px solid var(--border-light, #e2e8f0);
-      padding: 1rem 2rem;
-      display: flex;
+
+    /* ─────────────────────────────────────────────────────────────────
+       Floating Dashboard Header (Adapted from Landing)
+       ───────────────────────────────────────────────────────────────── */
+    .navbar.dashboard-nav {
       justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
     }
-    
-    .header-left {
+
+    .user-profile-pill {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: var(--space-3);
+      padding: var(--space-1) var(--space-1) var(--space-1) var(--space-3);
+      background: var(--color-bg-base);
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-full);
+      transition: all var(--transition-base);
     }
-    
-    .logo-text {
-      font-size: 1.25rem;
+
+    .user-profile-pill:hover {
+      border-color: var(--color-gray-300);
+      background: var(--color-white);
+    }
+
+    .user-info-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .user-name-display {
+      font-size: 0.875rem;
       font-weight: 700;
-      color: var(--text-primary);
+      color: var(--color-primary);
+      line-height: 1.2;
     }
-    
-    .employer-badge {
-      background: linear-gradient(135deg, var(--primary-light), var(--accent));
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
+
+    .user-role-display {
+      font-size: 0.7rem;
       font-weight: 600;
-      text-transform: uppercase;
-    }
-    
-    .header-nav {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
-    
-    .nav-link {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      text-decoration: none;
-      padding: 0.5rem 0;
-      border-bottom: 2px solid transparent;
-      transition: all 0.2s;
-    }
-    
-    .nav-link:hover,
-    .nav-link.active {
-      color: var(--text-primary);
-      border-bottom-color: var(--color-accent);
-    }
-    
-    .user-info {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    
-    .user-name {
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-    
-    .user-role {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      text-transform: capitalize;
-    }
-    
-    /* Main Content */
-    .dashboard-main {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    
-    /* Page Header */
-    .page-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 2rem;
-    }
-    
-    .page-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 0.5rem;
-    }
-    
-    .page-subtitle {
-      color: var(--text-secondary);
-    }
-    
-    .header-actions {
-      display: flex;
-      gap: 0.75rem;
-    }
-    
-    .period-select {
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--border-light);
-      border-radius: 8px;
-      background: var(--bg-secondary);
-      font-size: 0.875rem;
-      color: var(--text-primary);
-      cursor: pointer;
-    }
-    
-    /* Stats Grid */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    
-    @media (max-width: 1200px) {
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    
-    @media (max-width: 640px) {
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    
-    .stat-card {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-light);
-      border-radius: 16px;
-      padding: 1.5rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-    
-    .stat-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    
-    .stat-icon.employees {
-      background: rgba(99, 102, 241, 0.1);
       color: var(--color-accent);
-    }
-    
-    .stat-icon.hours {
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--color-success);
-    }
-    
-    .stat-icon.sessions {
-      background: rgba(245, 158, 11, 0.1);
-      color: var(--color-warning);
-    }
-    
-    .stat-icon.violations {
-      background: rgba(239, 68, 68, 0.1);
-      color: var(--color-error);
-    }
-    
-    .stat-content {
-      flex: 1;
-    }
-    
-    .stat-label {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      margin-bottom: 0.25rem;
-    }
-    
-    .stat-value {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-    
-    .stat-change {
-      font-size: 0.75rem;
-      margin-top: 0.25rem;
-    }
-    
-    .stat-change.positive {
-      color: var(--color-success);
-    }
-    
-    .stat-change.negative {
-      color: var(--color-error);
-    }
-    
-    /* Main Grid */
-    .main-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 1.5rem;
-    }
-    
-    @media (max-width: 1024px) {
-      .main-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    
-    /* Cards */
-    .dashboard-card {
-      background: var(--color-gray-50, #f8fafc); 
-      border: 1px solid var(--color-gray-200, #e2e8f0);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-    }
-    
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.25rem 1.5rem;
-      border-bottom: 1px solid var(--border-light);
-    }
-    
-    .card-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    
-    .card-body {
-      padding: 1.5rem;
-    }
-    
-    /* Employee Table */
-    .table-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    
-    .search-input {
-      padding: 0.5rem 1rem;
-      padding-left: 2.5rem;
-      border: 1px solid var(--border-light);
-      border-radius: 8px;
-      background: var(--bg-primary);
-      font-size: 0.875rem;
-      width: 240px;
-      position: relative;
-    }
-    
-    .search-wrapper {
-      position: relative;
-    }
-    
-    .search-wrapper svg {
-      position: absolute;
-      left: 0.75rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-secondary);
-      width: 16px;
-      height: 16px;
-    }
-    
-    .filter-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--border-light);
-      border-radius: 8px;
-      background: var(--bg-secondary);
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .filter-btn:hover {
-      border-color: var(--color-accent);
-      color: var(--color-accent);
-    }
-    
-    .filter-btn.active {
-      background: var(--color-accent);
-      color: white;
-      border-color: var(--color-accent);
-    }
-    
-    .employee-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    
-    .employee-table th {
-      text-align: left;
-      padding: 0.75rem 1rem;
-      font-size: 0.75rem;
-      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: var(--text-secondary);
-      background: var(--bg-primary);
-      border-bottom: 1px solid var(--border-light);
     }
-    
-    .employee-table td {
-      padding: 1rem;
-      border-bottom: 1px solid var(--border-light);
-      font-size: 0.875rem;
-    }
-    
-    .employee-table tr:last-child td {
-      border-bottom: none;
-    }
-    
-    .employee-table tr:hover {
-      background: var(--color-gray-50);
-    }
-    
-    .employee-info {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    
-    .employee-avatar {
+
+    .logout-btn-circle {
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary-light), var(--accent));
+      background: var(--color-gray-100);
+      color: var(--color-gray-600);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .logout-btn-circle:hover {
+      background: var(--color-error);
+      color: var(--color-white);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Dashboard Layout Grid
+       ───────────────────────────────────────────────────────────────── */
+    .dashboard-layout {
+      padding-top: 140px; /* Clear floating header perfectly */
+      padding-bottom: var(--space-16);
+      min-height: 100vh;
+    }
+
+    .dash-header-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: var(--space-8);
+    }
+
+    .dash-title {
+      font-size: 2.25rem;
+      margin-bottom: var(--space-2);
+      letter-spacing: -0.03em;
+    }
+
+    .dash-controls {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .control-select {
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-gray-200);
+      background: var(--color-white);
+      font-family: var(--font-primary);
       font-weight: 600;
-      font-size: 0.875rem;
+      color: var(--color-primary);
+      cursor: pointer;
+      outline: none;
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-sm);
     }
-    
-    .employee-name {
-      font-weight: 500;
-      color: var(--text-primary);
+
+    .control-select:hover, .control-select:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px var(--color-accent-glow);
     }
-    
-    .employee-email {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-    }
-    
-    .status-badge {
+
+    .btn-refresh {
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius-lg);
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-200);
+      color: var(--color-primary);
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
-      gap: 0.375rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-    
-    .status-badge.compliant {
-      background: var(--color-success-light);
-      color: var(--color-success-dark);
-    }
-    
-    .status-badge.warning {
-      background: var(--color-warning-light);
-      color: var(--color-warning-dark);
-    }
-    
-    .status-badge.violation {
-      background: var(--color-error-light);
-      color: var(--color-error-dark);
-    }
-    
-    .status-badge.active {
-      background: rgba(99, 102, 241, 0.1);
-      color: var(--color-accent);
-    }
-    
-    .hours-cell {
-      font-variant-numeric: tabular-nums;
-    }
-    
-    .hours-cell.overtime {
-      color: var(--color-error);
-      font-weight: 500;
-    }
-    
-    .action-btn {
-      padding: 0.375rem 0.75rem;
-      font-size: 0.75rem;
-      background: transparent;
-      border: 1px solid var(--border-light);
-      border-radius: 6px;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .action-btn:hover {
-      background: var(--color-gray-100);
-      color: var(--text-primary);
-    }
-    
-    /* Chart Placeholder */
-    .chart-container {
-      height: 200px;
-      display: flex;
-      align-items: flex-end;
       gap: 0.5rem;
-      padding: 1rem 0;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-sm);
     }
-    
-    .chart-bar-wrapper {
-      flex: 1;
+
+    .btn-refresh:hover {
+      background: var(--color-gray-50);
+      border-color: var(--color-gray-300);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Metrics Cards (Premium Tier)
+       ───────────────────────────────────────────────────────────────── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+      margin-bottom: var(--space-6);
+    }
+
+    .metric-card {
+      background: var(--color-white);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-6);
+      border: 1px solid var(--color-gray-200);
+      box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+      position: relative;
+      overflow: hidden;
     }
-    
-    .chart-bar {
-      width: 100%;
-      max-width: 40px;
-      border-radius: 4px 4px 0 0;
-      background: linear-gradient(to top, var(--color-accent), var(--primary-light));
-      transition: height 0.3s ease;
+
+    .metric-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
     }
-    
-    .chart-bar.warning {
-      background: linear-gradient(to top, var(--color-warning), #fbbf24);
+
+    /* The Master Dark Card */
+    .metric-card.dark-master {
+      background: var(--color-primary);
+      color: var(--color-white);
+      border: none;
     }
-    
-    .chart-bar.violation {
-      background: linear-gradient(to top, var(--color-error), #f87171);
-    }
-    
-    .chart-label {
-      font-size: 0.625rem;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-    }
-    
-    .chart-value {
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-    
-    /* Violations List */
-    .violations-list {
-      max-height: 400px;
-      overflow-y: auto;
-    }
-    
-    .violation-item {
+    .metric-card.dark-master .metric-label { color: var(--color-gray-400); }
+    .metric-card.dark-master .metric-value { color: var(--color-white); }
+    .metric-card.dark-master .icon-box { background: rgba(255,255,255,0.1); color: var(--color-white); }
+
+    .metric-header {
       display: flex;
+      justify-content: space-between;
       align-items: flex-start;
-      gap: 0.75rem;
-      padding: 1rem;
-      border-bottom: 1px solid var(--border-light);
+      margin-bottom: var(--space-4);
+    }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon-box.blue { background: rgba(99, 102, 241, 0.1); color: var(--color-accent); }
+    .icon-box.green { background: rgba(16, 185, 129, 0.1); color: var(--color-success); }
+    .icon-box.orange { background: rgba(245, 158, 11, 0.1); color: var(--color-warning); }
+    .icon-box.red { background: rgba(239, 68, 68, 0.1); color: var(--color-error); }
+
+    .metric-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metric-value {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: var(--space-2);
+    }
+
+    .metric-trend {
+      font-size: 0.875rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .trend-up { color: var(--color-success); }
+    .trend-down { color: var(--color-error); }
+    .trend-neutral { color: var(--color-gray-500); }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Main Content Area (Charts & Lists)
+       ───────────────────────────────────────────────────────────────── */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-6);
+      margin-bottom: var(--space-6);
+    }
+
+    .bento-card {
+      background: var(--color-white);
+      border-radius: var(--radius-2xl);
+      border: 1px solid var(--color-gray-200);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .bento-header {
+      padding: var(--space-6) var(--space-6) var(--space-4);
+      border-bottom: 1px solid var(--color-gray-100);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .bento-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 0;
+    }
+
+    .bento-body {
+      padding: var(--space-6);
+      flex-grow: 1;
+    }
+
+    /* Chart Container */
+    .chart-container {
+      position: relative;
+      height: 300px;
+      width: 100%;
+    }
+
+    /* Violations Feed */
+    .feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      max-height: 300px;
+      overflow-y: auto;
+      padding-right: var(--space-2);
     }
     
-    .violation-item:last-child {
-      border-bottom: none;
+    .feed-list::-webkit-scrollbar { width: 4px; }
+    .feed-list::-webkit-scrollbar-thumb { background: var(--color-gray-300); border-radius: 4px; }
+
+    .feed-item {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      border-radius: var(--radius-lg);
+      background: var(--color-bg-base);
+      border: 1px solid transparent;
+      transition: all var(--transition-fast);
     }
-    
-    .violation-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
+
+    .feed-item:hover {
+      background: var(--color-white);
+      border-color: var(--color-gray-200);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .feed-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
-    
-    .violation-icon.warning {
-      background: var(--color-warning-light);
-      color: var(--color-warning-dark);
+    .feed-icon.critical { background: rgba(239, 68, 68, 0.1); color: var(--color-error); }
+    .feed-icon.warning { background: rgba(245, 158, 11, 0.1); color: var(--color-warning); }
+
+    .feed-content h4 {
+      font-size: 0.9rem;
+      margin: 0 0 2px 0;
+      color: var(--color-primary);
     }
-    
-    .violation-icon.critical {
-      background: var(--color-error-light);
-      color: var(--color-error-dark);
+    .feed-content p {
+      font-size: 0.8rem;
+      color: var(--color-gray-500);
+      margin: 0 0 4px 0;
+      line-height: 1.3;
     }
-    
-    .violation-content {
-      flex: 1;
-      min-width: 0;
-    }
-    
-    .violation-employee {
+    .feed-time {
+      font-size: 0.75rem;
+      color: var(--color-gray-400);
       font-weight: 500;
-      color: var(--text-primary);
-      font-size: 0.875rem;
     }
-    
-    .violation-description {
-      font-size: 0.8125rem;
-      color: var(--text-secondary);
-      margin-top: 0.125rem;
-    }
-    
-    .violation-time {
-      font-size: 0.75rem;
-      color: var(--text-tertiary);
-      margin-top: 0.25rem;
-    }
-    
-    /* Compliance Summary */
-    .compliance-summary {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-    
-    .compliance-item {
-      text-align: center;
-      padding: 1rem;
-      background: var(--bg-primary);
-      border-radius: 8px;
-    }
-    
-    .compliance-count {
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-    
-    .compliance-count.compliant {
-      color: var(--color-success);
-    }
-    
-    .compliance-count.warning {
-      color: var(--color-warning);
-    }
-    
-    .compliance-count.violation {
-      color: var(--color-error);
-    }
-    
-    .compliance-label {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      margin-top: 0.25rem;
-    }
-    
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: 3rem 2rem;
-      color: var(--text-secondary);
-    }
-    
-    .empty-state svg {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 1rem;
-      opacity: 0.5;
-    }
-    
-    .empty-state p {
-      font-size: 0.875rem;
-    }
-    
-    /* Alert Toast */
-    .alert-toast {
-      position: fixed;
-      top: 100px;
-      right: 2rem;
-      max-width: 400px;
-      padding: 1rem 1.5rem;
-      background: var(--bg-secondary);
-      border-radius: 12px;
-      box-shadow: var(--shadow-xl);
-      border-left: 4px solid var(--color-accent);
-      display: none;
-      z-index: 1000;
-      animation: slideIn 0.3s ease;
-    }
-    
-    .alert-toast.show {
-      display: block;
-    }
-    
-    .alert-toast.success {
-      border-left-color: var(--color-success);
-    }
-    
-    .alert-toast.warning {
-      border-left-color: var(--color-warning);
-    }
-    
-    .alert-toast.error {
-      border-left-color: var(--color-error);
-    }
-    
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateX(100px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    
-    .alert-toast-title {
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.25rem;
-    }
-    
-    .alert-toast-message {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-    
-    /* Loading */
-    .loading-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.8);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    
-    .loading-overlay.show {
+
+    /* ─────────────────────────────────────────────────────────────────
+       Enterprise Data Table
+       ───────────────────────────────────────────────────────────────── */
+    .table-toolbar {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-4);
+      gap: var(--space-4);
     }
-    
-    .loading-spinner {
+
+    .search-box {
+      position: relative;
+      flex-grow: 1;
+      max-width: 350px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--radius-lg);
+      font-family: var(--font-primary);
+      font-size: 0.9rem;
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+
+    .search-box input:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px var(--color-accent-glow);
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-gray-400);
+    }
+
+    .table-filters {
+      display: flex;
+      background: var(--color-bg-base);
+      padding: 4px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-gray-200);
+    }
+
+    .filter-tab {
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-gray-500);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .filter-tab.active {
+      background: var(--color-white);
+      color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .data-grid {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      text-align: left;
+    }
+
+    .data-grid th {
+      padding: var(--space-3) var(--space-4);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-gray-500);
+      font-weight: 600;
+      border-bottom: 1px solid var(--color-gray-200);
+      background: var(--color-white); /* For sticky if needed */
+    }
+
+    .data-grid td {
+      padding: var(--space-4);
+      border-bottom: 1px solid var(--color-gray-100);
+      font-size: 0.9rem;
+      vertical-align: middle;
+      transition: background var(--transition-fast);
+    }
+
+    .data-grid tbody tr:hover td {
+      background: var(--color-bg-base);
+    }
+
+    .data-grid tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Cell Components */
+    .user-cell {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .avatar-circle {
       width: 40px;
       height: 40px;
-      border: 3px solid var(--color-gray-200);
-      border-top-color: var(--color-accent);
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    
-    /* Employee Detail Modal */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
+      background: var(--gradient-accent);
+      color: var(--color-white);
+      display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
-      padding: 2rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .user-cell-info h4 { margin: 0 0 2px 0; color: var(--color-primary); font-size: 0.95rem; }
+    .user-cell-info p { margin: 0; color: var(--color-gray-500); font-size: 0.8rem; }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
     }
     
-    .modal-overlay.show {
-      display: flex;
-    }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+    .status-pill.active { background: rgba(99, 102, 241, 0.1); color: var(--color-accent); }
+    .status-pill.active .status-dot { background: var(--color-accent); box-shadow: 0 0 6px var(--color-accent); animation: pulse 2s infinite; }
     
-    .modal-content {
-      background: var(--bg-secondary);
-      border-radius: 16px;
-      max-width: 600px;
-      width: 100%;
-      max-height: 80vh;
-      overflow: hidden;
+    .status-pill.compliant { background: rgba(16, 185, 129, 0.1); color: var(--color-success); }
+    .status-pill.compliant .status-dot { background: var(--color-success); }
+    
+    .status-pill.warning { background: rgba(245, 158, 11, 0.1); color: var(--color-warning); }
+    .status-pill.warning .status-dot { background: var(--color-warning); }
+    
+    .status-pill.violation { background: rgba(239, 68, 68, 0.1); color: var(--color-error); }
+    .status-pill.violation .status-dot { background: var(--color-error); }
+
+    /* Mono font for precision numbers */
+    .num-cell {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+    .num-cell.alert { color: var(--color-error); font-weight: 700; }
+
+    .action-button {
+      padding: 6px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-gray-200);
+      background: var(--color-white);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .action-button:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Overlays & Modals
+       ───────────────────────────────────────────────────────────────── */
+    .toast-container {
+      position: fixed;
+      bottom: var(--space-8);
+      right: var(--space-8);
+      z-index: 9999;
       display: flex;
       flex-direction: column;
+      gap: var(--space-2);
     }
-    
+
+    .toast {
+      background: var(--color-primary);
+      color: var(--color-white);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transform: translateX(120%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast.show { transform: translateX(0); }
+    .toast.error { border-left: 4px solid var(--color-error); }
+    .toast.success { border-left: 4px solid var(--color-success); }
+
+    /* Glassmorphism Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-base);
+    }
+    .modal-backdrop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-panel {
+      background: var(--color-white);
+      width: 100%;
+      max-width: 600px;
+      border-radius: var(--radius-2xl);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.2);
+      transform: translateY(40px) scale(0.95);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+    .modal-backdrop.show .modal-panel {
+      transform: translateY(0) scale(1);
+    }
+
     .modal-header {
+      padding: var(--space-6);
+      border-bottom: 1px solid var(--color-gray-100);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.25rem 1.5rem;
-      border-bottom: 1px solid var(--border-light);
     }
+    .modal-header h2 { margin: 0; font-size: 1.25rem; }
     
-    .modal-title {
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    
-    .modal-close {
-      width: 32px;
-      height: 32px;
+    .modal-close-btn {
+      background: var(--color-bg-base);
       border: none;
-      background: var(--bg-primary);
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-secondary);
-      transition: all 0.2s;
-    }
-    
-    .modal-close:hover {
-      background: var(--color-gray-200);
-      color: var(--text-primary);
-    }
-    
-    .modal-body {
-      padding: 1.5rem;
-      overflow-y: auto;
-      flex: 1;
-    }
-    
-    .employee-detail-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border-light);
-    }
-    
-    .employee-detail-avatar {
-      width: 56px;
-      height: 56px;
+      width: 36px; height: 36px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary-light), var(--accent));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 1.25rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--color-gray-500);
+      transition: all var(--transition-fast);
+    }
+    .modal-close-btn:hover { background: var(--color-gray-200); color: var(--color-primary); }
+
+    .modal-body {
+      padding: var(--space-6);
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    /* Profile Header in Modal */
+    .modal-profile {
+      display: flex; align-items: center; gap: var(--space-4);
+      margin-bottom: var(--space-6); padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--color-gray-100);
+    }
+    .modal-avatar {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--color-primary); color: var(--color-white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 700;
     }
     
-    .employee-detail-info h3 {
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.25rem;
+    .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-6); }
+    .modal-stat-box { background: var(--color-bg-base); padding: var(--space-4); border-radius: var(--radius-lg); border: 1px solid var(--color-gray-200); }
+    .modal-stat-label { font-size: 0.75rem; color: var(--color-gray-500); text-transform: uppercase; font-weight: 600; margin-bottom: 4px; }
+    .modal-stat-val { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; color: var(--color-primary); }
+
+    /* Entry Animations */
+    .stagger-enter { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .stagger-enter.show { opacity: 1; transform: translateY(0); }
+
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Responsive Behavior
+       ───────────────────────────────────────────────────────────────── */
+    @media (max-width: 1200px) {
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .bento-grid { grid-template-columns: 1fr; }
     }
-    
-    .employee-detail-info p {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-    
-    .employee-stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    
-    .employee-stat {
-      padding: 1rem;
-      background: var(--bg-primary);
-      border-radius: 8px;
-    }
-    
-    .employee-stat-label {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      margin-bottom: 0.25rem;
-    }
-    
-    .employee-stat-value {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    
-    .employee-logs-title {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.75rem;
-    }
-    
-    .employee-log-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem;
-      background: var(--bg-primary);
-      border-radius: 8px;
-      margin-bottom: 0.5rem;
-      font-size: 0.875rem;
-    }
-    
-    .employee-log-date {
-      color: var(--text-secondary);
-    }
-    
-    .employee-log-hours {
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-    
-    @media (max-width: 640px) {
-      .dashboard-header {
-        padding: 1rem;
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
-      
-      .header-nav {
-        display: none;
-      }
-      
-      .page-header {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .header-actions {
-        width: 100%;
-      }
-      
-      .table-controls {
-        flex-direction: column;
-      }
-      
-      .search-input {
-        width: 100%;
-      }
-      
-      .employee-table {
-        font-size: 0.8125rem;
-      }
-      
-      .employee-table th,
-      .employee-table td {
-        padding: 0.5rem;
-      }
-      
-      .compliance-summary {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 768px) {
+      .dash-header-section { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
+      .metrics-grid { grid-template-columns: 1fr; }
+      .table-toolbar { flex-direction: column; align-items: stretch; }
+      .search-box { max-width: 100%; }
+      .table-filters { overflow-x: auto; white-space: nowrap; }
     }
   </style>
 </head>
 <body>
-  <div class="dashboard-container">
-    <!-- Header -->
-    <header class="dashboard-header">
-      <div class="header-left">
-        <div class="logo-text">LabourGuard</div>
-        <span class="employer-badge">Employer</span>
-      </div>
-      <nav class="header-nav">
-        <a href="#" class="nav-link active">Dashboard</a>
-        <a href="privacy.html" class="nav-link">Privacy</a>
-      </nav>
-      <div class="user-info">
-        <div>
-          <div class="user-name" id="user-name">Loading...</div>
-          <div class="user-role" id="user-role">Employer</div>
+
+  <!-- Floating Pill Navbar -->
+  <nav class="navbar dashboard-nav" id="navbar">
+    <div class="navbar-content" style="width: 100%;">
+      <a href="index.html" class="navbar-logo">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+          <rect width="32" height="32" rx="8" fill="var(--color-accent)"/>
+          <path d="M10 16L14 20L22 12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        LabourGuard
+      </a>
+      
+      <div class="user-profile-pill">
+        <div class="user-info-text">
+          <span class="user-name-display" id="user-name">Authenticating...</span>
+          <span class="user-role-display" id="user-role">Employer</span>
         </div>
-        <button class="btn btn-secondary" id="logout-btn">Logout</button>
+        <button class="logout-btn-circle" id="logout-btn" title="Secure Logout">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </button>
       </div>
-    </header>
+    </div>
+  </nav>
+
+  <div class="dashboard-layout container">
     
-    <!-- Main Content -->
-    <main class="dashboard-main">
-      <!-- Page Header -->
-      <div class="page-header">
-        <div>
-          <h1 class="page-title">Team Overview</h1>
-          <p class="page-subtitle">Monitor your team's working hours and compliance status</p>
+    <!-- Hero/Header Section -->
+    <div class="dash-header-section stagger-enter">
+      <div>
+        <h1 class="dash-title">Organization Intelligence</h1>
+        <p>Real-time compliance telemetry and workforce analytics.</p>
+      </div>
+      <div class="dash-controls">
+        <select class="control-select" id="period-select">
+          <option value="day">Today's Telemetry</option>
+          <option value="week" selected>7-Day Window</option>
+          <option value="month">30-Day Window</option>
+        </select>
+        <button class="btn-refresh" id="refresh-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+            <path d="M3 3v5h5"></path>
+            <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"></path>
+            <path d="M16 21v-5h5"></path>
+          </svg>
+          Sync
+        </button>
+      </div>
+    </div>
+
+    <!-- Master Metrics Grid -->
+    <div class="metrics-grid">
+      <!-- Master Dark Card -->
+      <div class="metric-card dark-master stagger-enter" style="transition-delay: 0.1s;">
+        <div class="metric-header">
+          <span class="metric-label">Active Workforce</span>
+          <div class="icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
         </div>
-        <div class="header-actions">
-          <select class="period-select" id="period-select">
-            <option value="day">Today</option>
-            <option value="week" selected>This Week</option>
-            <option value="month">This Month</option>
-          </select>
-          <button class="btn btn-primary" id="refresh-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M23 4v6h-6"></path>
-              <path d="M1 20v-6h6"></path>
-              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-            </svg>
-            Refresh
-          </button>
+        <div class="metric-value" id="stat-employees">--</div>
+        <div class="metric-trend trend-neutral" id="stat-active">
+           <span class="status-dot" style="background:var(--color-success); box-shadow:0 0 6px var(--color-success); animation:pulse 2s infinite; margin-right:4px;"></span> Syncing status...
+        </div>
+      </div>
+
+      <div class="metric-card stagger-enter" style="transition-delay: 0.15s;">
+        <div class="metric-header">
+          <span class="metric-label">Total Hours Logged</span>
+          <div class="icon-box blue">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+        </div>
+        <div class="metric-value" id="stat-hours">--h</div>
+        <div class="metric-trend trend-neutral" id="stat-avg-hours">--h avg / employee</div>
+      </div>
+
+      <div class="metric-card stagger-enter" style="transition-delay: 0.2s;">
+        <div class="metric-header">
+          <span class="metric-label">Secure Sessions</span>
+          <div class="icon-box green">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          </div>
+        </div>
+        <div class="metric-value" id="stat-sessions">--</div>
+        <div class="metric-trend trend-up" id="stat-checked-in">-- active sessions</div>
+      </div>
+
+      <div class="metric-card stagger-enter" style="transition-delay: 0.25s;">
+        <div class="metric-header">
+          <span class="metric-label">Compliance Flags</span>
+          <div class="icon-box red">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          </div>
+        </div>
+        <div class="metric-value" id="stat-violations" style="color: var(--color-error);">--</div>
+        <div class="metric-trend trend-down" id="stat-violation-change">Require attention</div>
+      </div>
+    </div>
+
+    <!-- Bento Grid (Chart + Feed) -->
+    <div class="bento-grid">
+      <!-- High-Fidelity Chart JS Container -->
+      <div class="bento-card stagger-enter" style="transition-delay: 0.3s;">
+        <div class="bento-header">
+          <h3 class="bento-title">Telemetry: Hours Rendered</h3>
+        </div>
+        <div class="bento-body">
+          <div class="chart-container">
+            <canvas id="hoursChartCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compliance Feed -->
+      <div class="bento-card stagger-enter" style="transition-delay: 0.35s;">
+        <div class="bento-header">
+          <h3 class="bento-title">System Flags</h3>
+        </div>
+        <div class="bento-body" style="padding: var(--space-4);">
+          <div class="feed-list" id="violations-list">
+            <!-- Feed items injected via JS -->
+            <div style="text-align: center; padding: 2rem; color: var(--color-gray-400);">
+               <p>Syncing telemetry feed...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enterprise Data Table -->
+    <div class="bento-card stagger-enter" style="transition-delay: 0.4s;">
+      <div class="bento-header" style="flex-direction: column; align-items: stretch; gap: var(--space-4);">
+        <div class="table-toolbar">
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search identity or email...">
+          </div>
+          <div class="table-filters">
+            <button class="filter-tab active" data-filter="all">All Profiles</button>
+            <button class="filter-tab" data-filter="compliant">Compliant</button>
+            <button class="filter-tab" data-filter="warning">Warning</button>
+            <button class="filter-tab" data-filter="violation">Violations</button>
+          </div>
         </div>
       </div>
       
-      <!-- Stats Grid -->
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon employees">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
-          </div>
-          <div class="stat-content">
-            <div class="stat-label">Total Employees</div>
-            <div class="stat-value" id="stat-employees">0</div>
-            <div class="stat-change positive" id="stat-active">0 currently active</div>
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-icon hours">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
-          </div>
-          <div class="stat-content">
-            <div class="stat-label">Total Hours</div>
-            <div class="stat-value" id="stat-hours">0h</div>
-            <div class="stat-change" id="stat-avg-hours">0h avg per employee</div>
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-icon sessions">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-          </div>
-          <div class="stat-content">
-            <div class="stat-label">Work Sessions</div>
-            <div class="stat-value" id="stat-sessions">0</div>
-            <div class="stat-change" id="stat-checked-in">0 checked in now</div>
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-icon violations">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-              <line x1="12" y1="9" x2="12" y2="13"></line>
-              <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
-          </div>
-          <div class="stat-content">
-            <div class="stat-label">Violations</div>
-            <div class="stat-value" id="stat-violations">0</div>
-            <div class="stat-change negative" id="stat-violation-change">This period</div>
-          </div>
-        </div>
+      <div class="table-wrapper">
+        <table class="data-grid">
+          <thead>
+            <tr>
+              <th>Identity</th>
+              <th>Current Status</th>
+              <th>Today (Hrs)</th>
+              <th>This Week (Hrs)</th>
+              <th>Flags</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="employees-table-body">
+            <!-- Rows injected via JS -->
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 3rem; color: var(--color-gray-400);">
+                Initiating database sync...
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      
-      <!-- Main Grid -->
-      <div class="main-grid">
-        <!-- Employees Table -->
-        <div class="dashboard-card">
-          <div class="card-header">
-            <h2 class="card-title">Employees</h2>
-          </div>
-          <div class="card-body">
-            <div class="table-controls">
-              <div class="search-wrapper">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-                <input type="text" class="search-input" id="search-input" placeholder="Search employees...">
-              </div>
-              <div style="display: flex; gap: 0.5rem;">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="compliant">Compliant</button>
-                <button class="filter-btn" data-filter="warning">Warning</button>
-                <button class="filter-btn" data-filter="violation">Violations</button>
-              </div>
-            </div>
-            
-            <div style="overflow-x: auto;">
-              <table class="employee-table">
-                <thead>
-                  <tr>
-                    <th>Employee</th>
-                    <th>Status</th>
-                    <th>Today</th>
-                    <th>This Week</th>
-                    <th>Violations</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="employees-table-body">
-                  <tr>
-                    <td colspan="6">
-                      <div class="empty-state">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="9" cy="7" r="4"></circle>
-                        </svg>
-                        <p>Loading employees...</p>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+    </div>
+
+  </div>
+
+  <!-- Global Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          LabourGuard
         </div>
-        
-        <!-- Right Column -->
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-          <!-- Compliance Summary -->
-          <div class="dashboard-card">
-            <div class="card-header">
-              <h2 class="card-title">Compliance Summary</h2>
-            </div>
-            <div class="card-body">
-              <div class="compliance-summary">
-                <div class="compliance-item">
-                  <div class="compliance-count compliant" id="compliance-compliant">0</div>
-                  <div class="compliance-label">Compliant</div>
-                </div>
-                <div class="compliance-item">
-                  <div class="compliance-count warning" id="compliance-warning">0</div>
-                  <div class="compliance-label">Warnings</div>
-                </div>
-                <div class="compliance-item">
-                  <div class="compliance-count violation" id="compliance-violation">0</div>
-                  <div class="compliance-label">Violations</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Hours Chart -->
-          <div class="dashboard-card">
-            <div class="card-header">
-              <h2 class="card-title">Daily Hours</h2>
-            </div>
-            <div class="card-body">
-              <div class="chart-container" id="hours-chart">
-                <!-- Chart bars will be rendered here -->
-              </div>
-            </div>
-          </div>
-          
-          <!-- Recent Violations -->
-          <div class="dashboard-card">
-            <div class="card-header">
-              <h2 class="card-title">Recent Violations</h2>
-            </div>
-            <div class="violations-list" id="violations-list">
-              <div class="empty-state">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                <p>No violations recorded</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ul class="footer-links">
+          <li><a href="privacy.html">Privacy Protocol</a></li>
+          <li><a href="#">Support Center</a></li>
+          <li><a href="#">API Documentation</a></li>
+        </ul>
       </div>
-    </main>
-    
-    <!-- Alert Toast -->
-    <div class="alert-toast" id="alert-toast">
-      <div class="alert-toast-title" id="alert-title">Title</div>
-      <div class="alert-toast-message" id="alert-message">Message</div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 LabourGuard Systems. Engineered for absolute statutory compliance.</p>
+      </div>
     </div>
-    
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loading-overlay">
-      <div class="loading-spinner"></div>
-    </div>
-    
-    <!-- Employee Detail Modal -->
-    <div class="modal-overlay" id="employee-modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title">Employee Details</h2>
-          <button class="modal-close" id="modal-close">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-        </div>
-        <div class="modal-body" id="modal-body">
-          <!-- Employee details will be rendered here -->
-        </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Glassmorphism Modal -->
+  <div class="modal-backdrop" id="employee-modal">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h2>Identity Telemetry</h2>
+        <button class="modal-close-btn" id="modal-close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- Content injected via JS -->
       </div>
     </div>
   </div>
-  
+
   <script type="module" src="../js/pages/employer-dashboard.js"></script>
 </body>
 </html>

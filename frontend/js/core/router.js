@@ -1,16 +1,19 @@
 /**
- * LabourGuard - Router Module
- * Handles navigation and route protection
+ * LabourGuard - Router Module (Clean URL Master Edition)
+ * Handles navigation and route protection without exposing .html
  */
 
 import { isAuthenticated, hasRole } from './auth.js';
 
 /**
  * Navigate to a URL
+ * Automatically strips .html to ensure Clean URL consistency
  * @param {string} url - URL to navigate to
  */
 export const navigate = (url) => {
-  window.location.href = url;
+  // Strip .html if it accidentally gets passed
+  const cleanUrl = url.replace(/\.html$/, '');
+  window.location.href = cleanUrl;
 };
 
 /**
@@ -19,17 +22,15 @@ export const navigate = (url) => {
  */
 export const getCurrentPage = () => {
   const path = window.location.pathname;
-  const page = path.split('/').pop().replace('.html', '');
+  const page = path.split('/').pop().replace(/\.html$/, '');
   return page || 'index';
 };
 
 /**
  * Protected route guard
  * Redirects to login if not authenticated
- * @param {string} redirectTo - URL to redirect to if not authenticated
- * @returns {boolean} Whether access is granted
  */
-export const protectedRoute = (redirectTo = '/pages/login.html') => {
+export const protectedRoute = (redirectTo = '/pages/login') => {
   if (!isAuthenticated()) {
     navigate(redirectTo);
     return false;
@@ -40,11 +41,8 @@ export const protectedRoute = (redirectTo = '/pages/login.html') => {
 /**
  * Role-based route guard
  * Redirects if user doesn't have required role
- * @param {string} requiredRole - Required role
- * @param {string} redirectTo - URL to redirect to if role doesn't match
- * @returns {boolean} Whether access is granted
  */
-export const roleRoute = (requiredRole, redirectTo = '/pages/dashboard.html') => {
+export const roleRoute = (requiredRole, redirectTo = '/pages/dashboard') => {
   if (!protectedRoute()) return false;
   
   if (!hasRole(requiredRole)) {
@@ -57,10 +55,8 @@ export const roleRoute = (requiredRole, redirectTo = '/pages/dashboard.html') =>
 /**
  * Guest route guard
  * Redirects if user is authenticated
- * @param {string} redirectTo - URL to redirect to if authenticated
- * @returns {boolean} Whether access is granted
  */
-export const guestRoute = (redirectTo = '/pages/dashboard.html') => {
+export const guestRoute = (redirectTo = '/pages/dashboard') => {
   if (isAuthenticated()) {
     navigate(redirectTo);
     return false;

@@ -1,6 +1,8 @@
 /**
- * LabourGuard - Login Page
- * Handles login form validation and submission
+ * ═══════════════════════════════════════════════════════════════
+ * LabourGuard - Login Page Engineering (Master Edition)
+ * Handles form validation, UI states, and Authentication API
+ * ═══════════════════════════════════════════════════════════════
  */
 
 import { redirectIfAuth, setAuth, getUser } from '../core/auth.js';
@@ -9,165 +11,177 @@ import { post } from '../core/api.js';
 // Redirect if already authenticated
 redirectIfAuth();
 
-// DOM Elements
-const loginForm = document.getElementById('login-form');
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const emailError = document.getElementById('email-error');
-const passwordError = document.getElementById('password-error');
-const alertContainer = document.getElementById('alert-container');
-const submitBtn = document.getElementById('submit-btn');
-const btnText = document.getElementById('btn-text');
-const btnLoader = document.getElementById('btn-loader');
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('LabourGuard Auth Engine: Online');
+  initEntryAnimations();
+  initFormInteractions();
+});
 
 /**
- * Validate email format
- * @param {string} email - Email to validate
- * @returns {boolean} Is valid
+ * Trigger High-Fidelity Entry Animations
  */
-const validateEmail = (email) => {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(email);
-};
-
-/**
- * Show field error
- * @param {HTMLElement} input - Input element
- * @param {HTMLElement} errorEl - Error element
- * @param {string} message - Error message
- */
-const showError = (input, errorEl, message) => {
-  input.classList.add('error');
-  errorEl.textContent = message;
-};
-
-/**
- * Clear field error
- * @param {HTMLElement} input - Input element
- * @param {HTMLElement} errorEl - Error element
- */
-const clearError = (input, errorEl) => {
-  input.classList.remove('error');
-  errorEl.textContent = '';
-};
-
-/**
- * Show alert message
- * @param {string} type - Alert type (success, error, warning, info)
- * @param {string} message - Alert message
- */
-const showAlert = (type, message) => {
-  alertContainer.innerHTML = `
-    <div class="alert alert-${type}">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        ${type === 'error' 
-          ? '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>'
-          : '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>'
-        }
-      </svg>
-      <span>${message}</span>
-    </div>
-  `;
-};
-
-/**
- * Clear alert
- */
-const clearAlert = () => {
-  alertContainer.innerHTML = '';
-};
-
-/**
- * Set loading state
- * @param {boolean} isLoading - Loading state
- */
-const setLoading = (isLoading) => {
-  submitBtn.disabled = isLoading;
-  btnText.textContent = isLoading ? 'Logging in...' : 'Log In';
-  btnLoader.classList.toggle('hidden', !isLoading);
-};
-
-/**
- * Validate form
- * @returns {boolean} Is valid
- */
-const validateForm = () => {
-  let isValid = true;
+function initEntryAnimations() {
+  const brandPanel = document.getElementById('anim-brand');
+  const formPanel = document.getElementById('anim-form');
   
-  // Validate email
-  if (!emailInput.value.trim()) {
-    showError(emailInput, emailError, 'Email is required');
-    isValid = false;
-  } else if (!validateEmail(emailInput.value)) {
-    showError(emailInput, emailError, 'Please enter a valid email');
-    isValid = false;
-  } else {
-    clearError(emailInput, emailError);
-  }
+  // Slight stagger for a premium feel
+  setTimeout(() => {
+    if (brandPanel) brandPanel.classList.add('anim-active');
+  }, 100);
   
-  // Validate password
-  if (!passwordInput.value) {
-    showError(passwordInput, passwordError, 'Password is required');
-    isValid = false;
-  } else if (passwordInput.value.length < 8) {
-    showError(passwordInput, passwordError, 'Password must be at least 8 characters');
-    isValid = false;
-  } else {
-    clearError(passwordInput, passwordError);
-  }
-  
-  return isValid;
-};
+  setTimeout(() => {
+    if (formPanel) formPanel.classList.add('anim-active');
+  }, 250);
+}
 
 /**
- * Handle form submission
- * @param {Event} e - Submit event
+ * Form Initialization & Event Binding
  */
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  clearAlert();
+function initFormInteractions() {
+  // DOM Elements
+  const loginForm = document.getElementById('login-form');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
   
-  if (!validateForm()) return;
+  const emailError = document.getElementById('email-error');
+  const passwordError = document.getElementById('password-error');
   
-  setLoading(true);
-  
-  try {
-    // Call login API
-    const response = await post('/auth/login', {
-      email: emailInput.value.trim(),
-      password: passwordInput.value
-    });
+  const alertContainer = document.getElementById('alert-container');
+  const submitBtn = document.getElementById('submit-btn');
+  const btnText = document.getElementById('btn-text');
+  const btnLoader = document.getElementById('btn-loader');
+
+  // Regex validation
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  // Error UI Handlers
+  const showError = (input, errorEl, message) => {
+    input.classList.add('error');
+    errorEl.textContent = message;
+    // Add a tiny shake animation for error feedback
+    input.parentElement.style.animation = 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both';
+    setTimeout(() => { input.parentElement.style.animation = ''; }, 400);
+  };
+
+  const clearError = (input, errorEl) => {
+    input.classList.remove('error');
+    if(errorEl) errorEl.textContent = '';
+  };
+
+  const showAlert = (type, message) => {
+    alertContainer.innerHTML = `
+      <div class="alert alert-${type}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          ${type === 'error' 
+            ? '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>'
+            : '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>'
+          }
+        </svg>
+        <span>${message}</span>
+      </div>
+    `;
+  };
+
+  const clearAlert = () => { alertContainer.innerHTML = ''; };
+
+  // Button Loading State
+  const setLoading = (isLoading) => {
+    submitBtn.disabled = isLoading;
+    if (isLoading) {
+      btnText.textContent = 'Authenticating...';
+      btnLoader.style.display = 'inline-block';
+      submitBtn.style.opacity = '0.8';
+    } else {
+      btnText.textContent = 'Access Dashboard';
+      btnLoader.style.display = 'none';
+      submitBtn.style.opacity = '1';
+    }
+  };
+
+  // Master Validation Function
+  const validateForm = () => {
+    let isValid = true;
     
-    if (response.success) {
-      // Store auth data
-      setAuth(response.data.token, response.data.user);
-      
-      // Show success message
-      showAlert('success', 'Login successful! Redirecting...');
-      
-      // Redirect based on role
-      const user = response.data.user;
-      setTimeout(() => {
-        if (user.role === 'employer') {
-          window.location.href = 'employer-dashboard.html';
-        } else {
-          window.location.href = 'dashboard.html';
-        }
-      }, 1000);
+    if (!emailInput.value.trim()) {
+      showError(emailInput, emailError, 'Email address is required.');
+      isValid = false;
+    } else if (!validateEmail(emailInput.value)) {
+      showError(emailInput, emailError, 'Please enter a valid format.');
+      isValid = false;
+    } else {
+      clearError(emailInput, emailError);
     }
     
-  } catch (error) {
-    showAlert('error', error.message || 'Invalid email or password. Please try again.');
-  } finally {
-    setLoading(false);
+    if (!passwordInput.value) {
+      showError(passwordInput, passwordError, 'Security protocol requires a password.');
+      isValid = false;
+    } else if (passwordInput.value.length < 8) {
+      showError(passwordInput, passwordError, 'Requires minimum 8 characters.');
+      isValid = false;
+    } else {
+      clearError(passwordInput, passwordError);
+    }
+    
+    return isValid;
+  };
+
+  // API Submission Handler
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    clearAlert();
+    
+    if (!validateForm()) return;
+    setLoading(true);
+    
+    try {
+      // Execute original API logic exactly as requested
+      const response = await post('/auth/login', {
+        email: emailInput.value.trim(),
+        password: passwordInput.value
+      });
+      
+      if (response.success) {
+        setAuth(response.data.token, response.data.user);
+        showAlert('success', 'Authentication verified. Routing to dashboard...');
+        
+        // Dynamic redirection based on role
+        const user = response.data.user;
+        setTimeout(() => {
+          if (user.role === 'employer') {
+            window.location.href = 'employer-dashboard.html';
+          } else {
+            window.location.href = 'dashboard.html';
+          }
+        }, 1000);
+      }
+      
+    } catch (error) {
+      showAlert('error', error.message || 'Invalid credentials. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Event Listeners for Real-time clearing
+  loginForm.addEventListener('submit', handleSubmit);
+  emailInput.addEventListener('input', () => clearError(emailInput, emailError));
+  passwordInput.addEventListener('input', () => clearError(passwordInput, passwordError));
+
+  // Add the CSS shake animation dynamically
+  if (!document.getElementById('shake-style')) {
+    const style = document.createElement('style');
+    style.id = 'shake-style';
+    style.innerHTML = `
+      @keyframes shake {
+        10%, 90% { transform: translate3d(-1px, 0, 0); }
+        20%, 80% { transform: translate3d(2px, 0, 0); }
+        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+        40%, 60% { transform: translate3d(4px, 0, 0); }
+      }
+    `;
+    document.head.appendChild(style);
   }
-};
-
-// Event Listeners
-loginForm.addEventListener('submit', handleSubmit);
-
-// Clear errors on input
-emailInput.addEventListener('input', () => clearError(emailInput, emailError));
-passwordInput.addEventListener('input', () => clearError(passwordInput, passwordError));
-
-console.log('LabourGuard Login Page Loaded');
+}
