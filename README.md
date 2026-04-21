@@ -128,3 +128,4 @@ frontend/  - UI and client-side code
 
 * This project was built as part of an academic exercise.
 * It focuses on a privacy-aware approach to compliance systems.
+
