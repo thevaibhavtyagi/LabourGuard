@@ -1,6 +1,6 @@
 # LabourGuard
 
-A privacy-focused system for managing labour law compliance without relying on intrusive monitoring.
+A privacy-focused system for managing labour law compliance without relying on intrusive monitoring. 
 
 LabourGuard tracks working hours and checks compliance with basic labour regulations while keeping employee data collection minimal.
 
