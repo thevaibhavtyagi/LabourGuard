@@ -448,7 +448,11 @@ window.viewEmployeeDetails = async (employeeId) => {
         </div>
       `;
       
-      employeeModal.classList.add('show');
+      document.body.appendChild(employeeModal);
+      
+      requestAnimationFrame(() => {
+        employeeModal.classList.add('show');
+      });
     }
   } catch (error) {
     showToast('error', 'Audit Failed', 'Could not retrieve identity telemetry.');
