@@ -5,15 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Employer Dashboard | LabourGuard Enterprise</title>
   
-  <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   
-  <!-- Chart.js for High-Fidelity Data Visualization -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Core Stylesheets -->
   <link rel="stylesheet" href="../styles/global.css">
   <link rel="stylesheet" href="../styles/components.css">
 
@@ -494,7 +491,6 @@
     .status-pill.active { background: rgba(99, 102, 241, 0.1); color: var(--color-accent); }
     .status-pill.active .status-dot { background: var(--color-accent); box-shadow: 0 0 6px var(--color-accent); animation: pulse 2s infinite; }
     
-<<<<<<< HEAD
     .status-pill.compliant { background: rgba(16, 185, 129, 0.1); color: var(--color-success); }
     .status-pill.compliant .status-dot { background: var(--color-success); }
     
@@ -540,7 +536,8 @@
       display: flex;
       flex-direction: column;
       gap: var(--space-2);
-=======
+    }
+
     .modal-content {
       background: var(--color-white, #ffffff); 
       border-radius: 16px;
@@ -551,7 +548,6 @@
       display: flex;
       flex-direction: column;
       box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.2));
->>>>>>> 92fb23a4e939c4e7c55be9ba2457f47f519288a0
     }
 
     .toast {
@@ -672,7 +668,6 @@
 </head>
 <body>
 
-  <!-- Floating Pill Navbar -->
   <nav class="navbar dashboard-nav" id="navbar">
     <div class="navbar-content" style="width: 100%;">
       <a href="index.html" class="navbar-logo">
@@ -701,7 +696,6 @@
 
   <div class="dashboard-layout container">
     
-    <!-- Hero/Header Section -->
     <div class="dash-header-section stagger-enter">
       <div>
         <h1 class="dash-title">Organization Intelligence</h1>
@@ -725,9 +719,7 @@
       </div>
     </div>
 
-    <!-- Master Metrics Grid -->
     <div class="metrics-grid">
-      <!-- Master Dark Card -->
       <div class="metric-card dark-master stagger-enter" style="transition-delay: 0.1s;">
         <div class="metric-header">
           <span class="metric-label">Active Workforce</span>
@@ -775,9 +767,7 @@
       </div>
     </div>
 
-    <!-- Bento Grid (Chart + Feed) -->
     <div class="bento-grid">
-      <!-- High-Fidelity Chart JS Container -->
       <div class="bento-card stagger-enter" style="transition-delay: 0.3s;">
         <div class="bento-header">
           <h3 class="bento-title">Telemetry: Hours Rendered</h3>
@@ -789,14 +779,12 @@
         </div>
       </div>
 
-      <!-- Compliance Feed -->
       <div class="bento-card stagger-enter" style="transition-delay: 0.35s;">
         <div class="bento-header">
           <h3 class="bento-title">System Flags</h3>
         </div>
         <div class="bento-body" style="padding: var(--space-4);">
           <div class="feed-list" id="violations-list">
-            <!-- Feed items injected via JS -->
             <div style="text-align: center; padding: 2rem; color: var(--color-gray-400);">
                <p>Syncing telemetry feed...</p>
             </div>
@@ -805,7 +793,6 @@
       </div>
     </div>
 
-    <!-- Enterprise Data Table -->
     <div class="bento-card stagger-enter" style="transition-delay: 0.4s;">
       <div class="bento-header" style="flex-direction: column; align-items: stretch; gap: var(--space-4);">
         <div class="table-toolbar">
@@ -835,7 +822,6 @@
             </tr>
           </thead>
           <tbody id="employees-table-body">
-            <!-- Rows injected via JS -->
             <tr>
               <td colspan="6" style="text-align: center; padding: 3rem; color: var(--color-gray-400);">
                 Initiating database sync...
@@ -848,7 +834,6 @@
 
   </div>
 
-  <!-- Global Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
@@ -867,10 +852,8 @@
     </div>
   </footer>
 
-  <!-- Toast Notification -->
   <div class="toast-container" id="toast-container"></div>
 
-  <!-- Glassmorphism Modal -->
   <div class="modal-backdrop" id="employee-modal">
     <div class="modal-panel">
       <div class="modal-header">
@@ -880,8 +863,7 @@
         </button>
       </div>
       <div class="modal-body" id="modal-body">
-        <!-- Content injected via JS -->
-      </div>
+        </div>
     </div>
   </div>
 

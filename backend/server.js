@@ -23,10 +23,16 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 // Middleware Setup
+// Middleware Setup
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
     ? process.env.FRONTEND_URL 
-    : ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:5000', 'http://127.0.0.1:5000'],
+    : [
+        'http://localhost:3000', 'http://127.0.0.1:3000', 
+        'http://localhost:5000', 'http://127.0.0.1:5000',
+        'http://localhost:5500', 'http://127.0.0.1:5500', // Added: VS Code Live Server
+        'http://localhost:5173', 'http://127.0.0.1:5173'  // Added: Vite Development Server
+      ],
   credentials: true
 }));
 

@@ -394,6 +394,7 @@ const renderHighFidelityChart = (dailyData) => {
 };
 
 // 7. Master Modal Controller
+// 7. Master Modal Controller
 window.viewEmployeeDetails = async (employeeId) => {
   try {
     const response = await get(`/employer/employees/${employeeId}/logs?limit=10`);
@@ -448,7 +449,14 @@ window.viewEmployeeDetails = async (employeeId) => {
         </div>
       `;
       
-      employeeModal.classList.add('show');
+      // THE FIX: Break out of the Transform Trap
+      // This moves the modal to the very root of the body, escaping any parent transforms.
+      document.body.appendChild(employeeModal);
+      
+      // Use requestAnimationFrame to ensure the DOM registers the move before animating
+      requestAnimationFrame(() => {
+        employeeModal.classList.add('show');
+      });
     }
   } catch (error) {
     showToast('error', 'Audit Failed', 'Could not retrieve identity telemetry.');
