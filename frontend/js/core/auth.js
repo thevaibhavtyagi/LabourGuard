@@ -70,7 +70,7 @@ export const clearAuth = () => {
  * Redirect to login if not authenticated
  * @param {string} redirectTo - URL to redirect to after login
  */
-export const requireAuth = (redirectTo = '/pages/login.html') => {
+export const requireAuth = (redirectTo = '/pages/login') => {
   if (!isAuthenticated()) {
     window.location.href = redirectTo;
     return false;
@@ -86,9 +86,9 @@ export const redirectIfAuth = () => {
   if (isAuthenticated()) {
     const user = getUser();
     if (user?.role === 'employer') {
-      window.location.href = 'employer-dashboard.html';
+      window.location.href = 'employer-dashboard';
     } else {
-      window.location.href = 'dashboard.html';
+      window.location.href = 'dashboard';
     }
     return true;
   }

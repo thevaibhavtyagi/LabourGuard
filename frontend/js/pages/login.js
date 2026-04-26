@@ -151,9 +151,9 @@ function initFormInteractions() {
         const user = response.data.user;
         setTimeout(() => {
           if (user.role === 'employer') {
-            window.location.href = 'employer-dashboard.html';
+            window.location.href = 'employer-dashboard';
           } else {
-            window.location.href = 'dashboard.html';
+            window.location.href = 'dashboard';
           }
         }, 1000);
       }

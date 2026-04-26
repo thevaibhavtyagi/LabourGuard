@@ -9,12 +9,12 @@ import { requireAuth, getUser, clearAuth, hasRole } from '../core/auth.js';
 import { get } from '../core/api.js';
 
 // 1. Authorization Gate
-if (!requireAuth('/pages/login.html')) {
+if (!requireAuth('/pages/login')) {
   throw new Error('Authentication sequence failed');
 }
 
 if (hasRole('employee')) {
-  window.location.href = 'dashboard.html';
+  window.location.href = 'dashboard';
   throw new Error('Rerouting to employee sector');
 }
 
@@ -80,7 +80,7 @@ function triggerEntryAnimations() {
 function bindEvents() {
   logoutBtn.addEventListener('click', () => {
     clearAuth();
-    window.location.href = 'login.html';
+    window.location.href = 'login';
   });
 
   periodSelect.addEventListener('change', loadDashboardData);

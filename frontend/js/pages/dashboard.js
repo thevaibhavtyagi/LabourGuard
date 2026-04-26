@@ -9,9 +9,9 @@ import { requireAuth, getUser, clearAuth, hasRole } from '../core/auth.js';
 import { get, post } from '../core/api.js';
 
 // 1. Authorization Gate
-if (!requireAuth('/pages/login.html')) throw new Error('Authentication required');
+if (!requireAuth('/pages/login')) throw new Error('Authentication required');
 if (hasRole('employer')) {
-  window.location.href = 'employer-dashboard.html';
+  window.location.href = 'employer-dashboard';
   throw new Error('Redirecting to employer dashboard');
 }
 
@@ -91,7 +91,7 @@ function bindEvents() {
   logoutBtn.addEventListener('click', () => {
     if (isWorking && !confirm('Active session detected. Logout without checking out?')) return;
     clearAuth();
-    window.location.href = 'login.html';
+    window.location.href = 'login';
   });
 }
 
