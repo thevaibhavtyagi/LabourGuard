@@ -1,131 +1,113 @@
-# LabourGuard
+# 🛡️ LabourGuard
+**Enterprise Privacy-First Labour Compliance Engine**
 
-A privacy-focused system for managing labour law compliance without relying on intrusive monitoring. 
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-LabourGuard tracks working hours and checks compliance with basic labour regulations while keeping employee data collection minimal.
-
----
-
-## Overview
-
-Most compliance systems rely on continuous tracking. LabourGuard takes a simpler approach — it logs only essential activity and evaluates compliance based on that.
-
-The system focuses on:
-- Recording work sessions (check-in / check-out)
-- Calculating daily and weekly hours
-- Identifying basic compliance violations
+LabourGuard is a robust, Zero-Knowledge architecture system designed to manage and enforce statutory labour law compliance. It perfectly balances an organization's need for strict legal compliance with the fundamental right to employee privacy by eliminating invasive surveillance methods like screen monitoring and continuous location tracking.
 
 ---
 
-## Key Ideas
-
-- **Minimal Data Collection**  
-  Only basic identity (name, email) and work timestamps are stored.
-
-- **No Intrusive Monitoring**  
-  No location tracking, screen recording, or keystroke logging.
-
-- **Server-Side Compliance Logic**  
-  All compliance checks are handled on the backend to avoid client-side manipulation.
+## 🔗 Live Deployment
+The application is fully deployed and accessible at: **https://labourguard.vercel.app/**
 
 ---
 
-## Tech Stack
-
-**Frontend**
-- HTML, CSS, JavaScript (Vanilla)
-
-**Backend**
-- Node.js, Express.js
-- MongoDB (Mongoose)
-
-**Authentication & Security**
-- JWT (authentication)
-- bcrypt (password hashing)
-
-**Deployment**
-- Vercel (serverless functions)
+## 🎯 Core Philosophy
+Modern compliance systems rely heavily on continuous, intrusive tracking. LabourGuard redefines this by securely logging only cryptographic timestamps (Check-In / Check-Out) and processing all legal compliance calculations strictly on the server-side. This prevents client-side tampering while maintaining absolute employee anonymity outside of active working hours.
 
 ---
 
-## How It Works
-
-1. **User Authentication**  
-   Users sign up and log in securely.
-
-2. **Work Sessions**  
-   Employees check in and check out to log work hours.
-
-3. **Compliance Checks**  
-   The backend evaluates:
-   - Daily working hours  
-   - Weekly working hours  
-   - Continuous work duration  
-
-4. **Employer View**  
-   Employers can view logs, summaries, and violations.
+## ✨ Key Features
+- **Frictionless Cryptographic Check-in:** One-click secure session generation.
+- **Background Compliance Engine:** Asynchronous server-side evaluation of statutory limits.
+- **Immutable Audit Logging:** Tamper-proof record generation for employer dashboards.
+- **Role-Based Access Control (RBAC):** Strict data segregation between `employee` telemetry and `employer` administrative oversight.
+- **Zero-Gap Telemetry:** Continuous array generation for seamless frontend charting, preventing UI breaks on non-working days.
 
 ---
 
-## Basic Compliance Rules
-
-- Daily limit: 9 hours  
-- Weekly limit: 48 hours  
-- Continuous work: 5 hours without break (warning)
+## ⚖️ Statutory Compliance Rules
+The backend engine is currently calibrated to monitor and automatically flag the following standard labour regulations:
+- **Daily Threshold:** 9 Hours maximum limit.
+- **Weekly Threshold:** 48 Hours maximum limit.
+- **Rest Period Requirement:** Alert triggered upon 5 hours of continuous work without a logged break.
 
 ---
 
-## Getting Started
+## 💻 Tech Stack
+* **Frontend:** HTML5, CSS3, Vanilla JavaScript
+* **Backend:** Node.js, Express.js (REST API Architecture)
+* **Database:** MongoDB (Mongoose ODM)
+* **Security:** JSON Web Tokens (JWT) for stateless auth, bcryptjs for cryptographic hashing
+* **Deployment:** Vercel (Serverless Edge Functions)
+
+---
+
+## 🚀 Getting Started (Local Setup)
 
 ### Prerequisites
-- Node.js (v18+)
-- MongoDB
+- Node.js (v18.0 or higher)
+- MongoDB URI (Local or Atlas)
+- Git
 
-## Setup
+### Installation
 
-Clone the repository:
+1. **Clone the Repository**
+   ```bash
+   git clone [https://github.com/thevaibhavtyagi/LabourGuard.git](https://github.com/thevaibhavtyagi/LabourGuard.git)
+   cd LabourGuard
+   
 
-```bash
-git clone https://github.com/thevaibhavtyagi/LabourGuard
-cd LabourGuard
-````
+2. **Backend Configuration**
+   ```bash
+   cd backend
+   npm install
+   ```
+   Create a `.env` file in the `backend` directory:
+   ```env
+   PORT=5000
+   NODE_ENV=development
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_secure_jwt_secret
+   FRONTEND_URL=http://localhost:3000
+   ```
+   Start the backend server:
+   ```bash
+   npm run dev
+   ```
 
-Create a `.env` file in the backend directory:
+3. **Frontend Configuration**
+   Open a new terminal window and serve the frontend:
+   ```bash
+   cd frontend
+   npx serve -l 3000
+   ```
+   *Access the application at `http://localhost:3000`*
 
-```env
-MONGO_URI=your_mongodb_connection
-JWT_SECRET=your_secret_key
-PORT=5000
-```
+---
 
-Install dependencies and start the backend:
-
-```bash
-cd backend
-npm install
-npm run dev
-```
-
-Run the frontend using any static server:
-
-```bash
-cd frontend/pages
-npx serve
+## 📁 High-Level Architecture
+```text
+LabourGuard/
+├── backend/          # Express REST API, Mongoose Models, Compliance Engine, Auth Middleware
+└── frontend/         # Client-side UI, API integration scripts, Dashboard visualizations
 ```
 
 ---
 
-## Project Structure
+## 👥 Core Engineering Team
 
-```
-backend/   - API, database, and core logic  
-frontend/  - UI and client-side code  
-```
+* **Vaibhav Tyagi**  
+  *System Architecture & Backend Core*  
+  Designed the Mongoose database schemas, built the background compliance engine, established API security, and engineered the complete Employee dashboard data pipeline.
 
----
+* **Sarthak Singh**  
+  *Employer Dashboard Engineering*  
+  Developed the Employer UI, integrated complex telemetry data streams, and engineered the data visualization charts for real-time compliance tracking.
 
-## Notes
-
-* This project was built as part of an academic exercise.
-* It focuses on a privacy-aware approach to compliance systems.
-
+* **Kundan Pandey**  
+  *Authentication & Security Interfaces*  
+  Engineered the secure Login and Sign-up flows, integrated JWT storage mechanisms on the client side, and ensured seamless Role-Based routing.
