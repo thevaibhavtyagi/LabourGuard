@@ -158,6 +158,7 @@ const getTimeAgo = (date) => {
 };
 
 // 5. Core Data Synchronization
+// 3function trigger
 const loadDashboardData = async () => {
   try {
     await Promise.all([
@@ -395,6 +396,7 @@ const renderHighFidelityChart = (dailyData) => {
 
 // 7. Master Modal Controller
 // 7. Master Modal Controller
+// 1function triggered
 window.viewEmployeeDetails = async (employeeId) => {
   try {
     const response = await get(`/employer/employees/${employeeId}/logs?limit=10`);
